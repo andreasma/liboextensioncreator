@@ -33,6 +33,12 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>example-extension</string>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -60,6 +66,9 @@
      <width>341</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Example.org</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -147,6 +156,9 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="placeholderText">
+    <string>1.0</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -320,6 +332,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string/>
    </property>
+   <property name="placeholderText">
+    <string>Example Extension</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_5">
    <property name="geometry">
@@ -329,6 +344,9 @@ p, li { white-space: pre-wrap; }
      <width>341</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string>John Doe</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -439,6 +457,16 @@ p, li { white-space: pre-wrap; }
    <item>
     <property name="text">
      <string>6.4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7.0</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7.1</string>
     </property>
    </item>
   </widget>
