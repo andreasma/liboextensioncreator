@@ -20,15 +20,7 @@ class CreatorDialog(QtGui.QDialog):
         displayedname = self.ui.DisplayedName.text().strip()
         platform = self.ui.Platform.currentText()
         libreofficeversion = self.ui.LibreOfficeVersion.currentText()
-        
-        
-        print(extensionname)
-        print(author)
-        print(extensionversion)
-        print(displayedname)
-        print(platform)
-        print(libreofficeversion)
-        
+ 
         # building manifest.xml
         manifestfile = minidom.Document()
         manifest_manifest = manifestfile.createElement('manifest:manifest')
@@ -81,17 +73,13 @@ class CreatorDialog(QtGui.QDialog):
         tag_publisher.appendChild(tag_name)
         tag_description.appendChild(tag_publisher)
         tag_dependencies.appendChild(tag_minimal_version)
-        tag_description.appendChild(tag_dependencies)
-        
-        
-        
+        tag_description.appendChild(tag_dependencies)        
         descriptionfile.appendChild(tag_description)
         
         cwd = os.getcwd()
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'META-INF'), exist_ok=True)
 
         path = os.path.join(cwd, 'working_directory', extensionname)
-        print('Path is: ', path)
         
         with open(os.path.join(path, 'description.xml'), 'w') as f:
             descriptionfile.writexml(f, "", "\t", "\n")

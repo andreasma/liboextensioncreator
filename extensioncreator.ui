@@ -58,7 +58,7 @@
     <string>Name of your LibreOffice Extension</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="Organization">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -509,7 +509,7 @@ p, li { white-space: pre-wrap; }
      <string>Accepted by:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_3">
+   <widget class="QComboBox" name="Accepted_by">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -611,6 +611,20 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>ExtensionName</tabstop>
+  <tabstop>Author</tabstop>
+  <tabstop>Organization</tabstop>
+  <tabstop>ExtensionVersion</tabstop>
+  <tabstop>DisplayedName</tabstop>
+  <tabstop>Platform</tabstop>
+  <tabstop>LibreOfficeVersion</tabstop>
+  <tabstop>Accepted_by</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>checkBox_2</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>textEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
