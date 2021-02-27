@@ -24,7 +24,7 @@
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
   </property>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="ExtensionName">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -145,7 +145,7 @@ p, li { white-space: pre-wrap; }
     <string>Version number of the extension (e.gl 0.1)</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="ExtensionVersion">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -179,7 +179,7 @@ p, li { white-space: pre-wrap; }
     <string>Please chose the platform, that your extension runs on.</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="Platform">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -320,7 +320,7 @@ p, li { white-space: pre-wrap; }
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_4">
+  <widget class="QLineEdit" name="DisplayedName">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -336,7 +336,7 @@ p, li { white-space: pre-wrap; }
     <string>Example Extension</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_5">
+  <widget class="QLineEdit" name="Author">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -385,7 +385,7 @@ p, li { white-space: pre-wrap; }
     <string>Minimal LibreOffice version (e.g. 4.2)</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="LibreOfficeVersion">
    <property name="geometry">
     <rect>
      <x>190</x>
