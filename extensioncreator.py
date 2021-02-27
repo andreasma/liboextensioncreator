@@ -4,6 +4,7 @@
 import sys
 import os
 from xml.dom import minidom
+from zipfile import ZipFile
 
 from PyQt4 import QtGui, uic
 
@@ -90,6 +91,13 @@ class CreatorDialog(QtGui.QDialog):
         with open(os.path.join(path, 'path.xcu'), 'w') as f:
             path_xcu_file.writexml(f, "", "\t", "\n")
             
+        
+        with ZipFile(extensionname + '.' + 'oxt', 'w') as liboextensionzip:
+            os.chdir(path)
+            for root, dirs, files in os.walk('.'):
+                for name in files:
+                    if not name == extensionname:
+                        liboextensionzip.write(os.path.join(root, name)) 
         
 
 app = QtGui.QApplication(sys.argv)
