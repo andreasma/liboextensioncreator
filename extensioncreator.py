@@ -5,22 +5,31 @@ import sys
 import os
 from xml.dom import minidom
 from zipfile import ZipFile
+import validators
 
-from PyQt4 import QtGui, uic
+from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5 import uic
 
-class CreatorDialog(QtGui.QDialog):
+class CreatorDialog(QDialog):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QDialog.__init__(self)
         self.ui = uic.loadUi("extensioncreator.ui", self)
         self.ui.buttonBox.button(0x00000400).clicked.connect(self.createextension)
         
     def createextension(self):
         extensionname = self.ui.ExtensionName.text().replace(' ', '')
+        identifier = self.ui.Identifier.text().strip()
         author = self.ui.Author.text().strip()
         extensionversion = self.ui.ExtensionVersion.text().strip()
         displayedname = self.ui.DisplayedName.text().strip()
         platform = self.ui.Platform.currentText()
         libreofficeversion = self.ui.LibreOfficeVersion.currentText()
+        accepted_by = self.ui.Accepted_by.currentText()
+        wb = self.ui.Website.text().strip()
+        if validators.url(wb):
+            website = wb
+        else:
+            website = None
  
         # building manifest.xml
         manifestfile = minidom.Document()
@@ -48,6 +57,8 @@ class CreatorDialog(QtGui.QDialog):
         tag_description = descriptionfile.createElement('description')
         tag_description.setAttribute('xmlns', 'http://openoffice.org/extensions/description/2006')
         tag_description.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+        tag_identifier = descriptionfile.createElement('identifier')
+        tag_identifier.setAttribute('value', identifier)
         tag_version = descriptionfile.createElement('version')
         tag_version.setAttribute('value', extensionversion)
         tag_platform = descriptionfile.createElement('platform')
@@ -58,6 +69,8 @@ class CreatorDialog(QtGui.QDialog):
         tag_dp_name_data = descriptionfile.createTextNode(displayedname)
         tag_publisher = descriptionfile.createElement('publisher')
         tag_name = descriptionfile.createElement('name')
+        if website != None:
+            tag_name.setAttribute('xlink:href', website)
         tag_author = descriptionfile.createTextNode(author)
         tag_icon = descriptionfile.createElement('icon')
         tag_dependencies = descriptionfile.createElement('dependencies')
@@ -65,6 +78,10 @@ class CreatorDialog(QtGui.QDialog):
         tag_minimal_version = descriptionfile.createElement('lo:LibreOffice-minimal-version')
         tag_minimal_version.setAttribute('name', 'LibreOffice ' + libreofficeversion)
         tag_minimal_version.setAttribute('value', libreofficeversion)
+        tag_registration = descriptionfile.createElement('registration')
+        tag_simple_license = descriptionfile.createElement('simple-license')
+        tag_simple_license.setAttribute('accept-by', accepted_by)
+        tag_description.appendChild(tag_identifier)
         tag_description.appendChild(tag_version)
         tag_description.appendChild(tag_platform)
         tag_dp_name.appendChild(tag_dp_name_data)
@@ -73,12 +90,16 @@ class CreatorDialog(QtGui.QDialog):
         tag_name.appendChild(tag_author)
         tag_publisher.appendChild(tag_name)
         tag_description.appendChild(tag_publisher)
+        tag_description.appendChild(tag_icon)
         tag_dependencies.appendChild(tag_minimal_version)
-        tag_description.appendChild(tag_dependencies)        
+        tag_description.appendChild(tag_dependencies)
+        tag_registration.appendChild(tag_simple_license)
+        tag_description.appendChild(tag_registration)
         descriptionfile.appendChild(tag_description)
         
         cwd = os.getcwd()
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'META-INF'), exist_ok=True)
+        os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'registration'), exist_ok=True)
 
         path = os.path.join(cwd, 'working_directory', extensionname)
         
@@ -100,7 +121,7 @@ class CreatorDialog(QtGui.QDialog):
                         liboextensionzip.write(os.path.join(root, name)) 
         
 
-app = QtGui.QApplication(sys.argv)
+app = QApplication(sys.argv)
 dialog = CreatorDialog()
 dialog.show()
 sys.exit(app.exec_())
