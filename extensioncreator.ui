@@ -137,7 +137,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>430</y>
+     <y>360</y>
      <width>341</width>
      <height>20</height>
     </rect>
@@ -155,7 +155,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>460</y>
+     <y>390</y>
      <width>171</width>
      <height>32</height>
     </rect>
@@ -274,8 +274,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>340</y>
+     <x>420</x>
+     <y>260</y>
      <width>341</width>
      <height>51</height>
     </rect>
@@ -295,8 +295,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QLineEdit" name="DisplayedName">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>390</y>
+     <x>420</x>
+     <y>310</y>
      <width>341</width>
      <height>31</height>
     </rect>
@@ -342,8 +342,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>510</y>
+     <x>420</x>
+     <y>360</y>
      <width>341</width>
      <height>20</height>
     </rect>
@@ -360,8 +360,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QComboBox" name="LibreOfficeVersion">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>540</y>
+     <x>420</x>
+     <y>390</y>
      <width>83</width>
      <height>32</height>
     </rect>
@@ -615,7 +615,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>270</y>
+     <y>280</y>
      <width>71</width>
      <height>23</height>
     </rect>
@@ -636,7 +636,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>300</y>
+     <y>310</y>
      <width>341</width>
      <height>31</height>
     </rect>
@@ -651,6 +651,35 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="placeholderText">
     <string>org.mycompany.myfirstextension</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>430</y>
+     <width>331</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Description / Documentation of the Extension (*.txt)&lt;br/&gt;(English Language)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="DescriptionFileDialog">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>480</y>
+     <width>331</width>
+     <height>39</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Choose Description / Documentation File</string>
    </property>
   </widget>
  </widget>
