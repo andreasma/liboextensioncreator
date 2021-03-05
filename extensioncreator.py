@@ -3,18 +3,37 @@
 
 import sys
 import os
+import shutil
+import ntpath
 from xml.dom import minidom
 from zipfile import ZipFile
 import validators
 
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog
 from PyQt5 import uic
 
+cwd = os.getcwd()
+
 class CreatorDialog(QDialog):
+    
+    description_filename = ''
+    
     def __init__(self):
         QDialog.__init__(self)
-        self.ui = uic.loadUi("extensioncreator.ui", self)
+        self.ui = uic.loadUi("extensioncreator.ui", self) 
+        self.ui.DescriptionFileDialog.clicked.connect(self.open_description_file)
         self.ui.buttonBox.button(0x00000400).clicked.connect(self.createextension)
+        
+    def open_description_file(self):
+        global description_filename
+        extensionname = self.ui.ExtensionName.text().replace(' ', '')
+        description_filename, _ = QFileDialog.getOpenFileName(
+            caption="Choose description / documenation file", filter="Plain text (*.txt)"
+            )
+        if description_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'description'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'description')
+            shutil.copy(description_filename, path)
         
     def createextension(self):
         extensionname = self.ui.ExtensionName.text().replace(' ', '')
@@ -78,6 +97,13 @@ class CreatorDialog(QDialog):
         tag_minimal_version = descriptionfile.createElement('lo:LibreOffice-minimal-version')
         tag_minimal_version.setAttribute('name', 'LibreOffice ' + libreofficeversion)
         tag_minimal_version.setAttribute('value', libreofficeversion)
+        if description_filename != '':
+            name = ntpath.basename(description_filename)
+            rellink = os.path.join('description', name)
+            tag_extension_description = descriptionfile.createElement('extension-description')
+            tag_src = descriptionfile.createElement('src')
+            tag_src.setAttribute('xlink:href', rellink)
+            tag_src.setAttribute('lang', 'en')
         tag_registration = descriptionfile.createElement('registration')
         tag_simple_license = descriptionfile.createElement('simple-license')
         tag_simple_license.setAttribute('accept-by', accepted_by)
@@ -93,11 +119,13 @@ class CreatorDialog(QDialog):
         tag_description.appendChild(tag_icon)
         tag_dependencies.appendChild(tag_minimal_version)
         tag_description.appendChild(tag_dependencies)
+        tag_extension_description.appendChild(tag_src)
+        tag_description.appendChild(tag_extension_description)
         tag_registration.appendChild(tag_simple_license)
         tag_description.appendChild(tag_registration)
         descriptionfile.appendChild(tag_description)
         
-        cwd = os.getcwd()
+        
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'META-INF'), exist_ok=True)
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'registration'), exist_ok=True)
 
