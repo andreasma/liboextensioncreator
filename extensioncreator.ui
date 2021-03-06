@@ -421,11 +421,11 @@
     </property>
    </item>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="registration_license">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>540</y>
+     <y>560</y>
      <width>801</width>
      <height>291</height>
     </rect>
@@ -487,11 +487,11 @@
      </property>
     </item>
    </widget>
-   <widget class="QCheckBox" name="checkBox_2">
+   <widget class="QCheckBox" name="suppress_if_required">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>120</y>
+      <x>20</x>
+      <y>180</y>
       <width>171</width>
       <height>22</height>
      </rect>
@@ -504,14 +504,14 @@
      </font>
     </property>
     <property name="text">
-     <string>surpress-if-required</string>
+     <string>suppress-if-required</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="suppress_on_update">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>90</y>
+      <x>20</x>
+      <y>150</y>
       <width>171</width>
       <height>22</height>
      </rect>
@@ -524,7 +524,7 @@
      </font>
     </property>
     <property name="text">
-     <string>surpress-on-update</string>
+     <string>suppress-on-update</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_11">
@@ -728,8 +728,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>Platform</tabstop>
   <tabstop>LibreOfficeVersion</tabstop>
   <tabstop>Accepted_by</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>checkBox_2</tabstop>
+  <tabstop>suppress_on_update</tabstop>
+  <tabstop>suppress_if_required</tabstop>
  </tabstops>
  <resources/>
  <connections>

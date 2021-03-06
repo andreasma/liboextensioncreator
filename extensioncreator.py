@@ -114,6 +114,10 @@ class CreatorDialog(QDialog):
         tag_registration = descriptionfile.createElement('registration')
         tag_simple_license = descriptionfile.createElement('simple-license')
         tag_simple_license.setAttribute('accept-by', accepted_by)
+        if self.ui.suppress_on_update.isChecked() == True:
+            tag_simple_license.setAttribute('suppress-on-update', 'True')
+        if self.ui.suppress_if_required.isChecked() == True:
+            tag_simple_license.setAttribute('suppress-if-required', 'True')
         tag_license_text = descriptionfile.createElement('license-text')
         tag_license_text.setAttribute('lang', 'en')
         tag_license_text.setAttribute('xlink:href', licenserellink)
