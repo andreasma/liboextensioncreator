@@ -13,18 +13,21 @@ from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog
 from PyQt5 import uic
 
 cwd = os.getcwd()
+description_filename = ''
+
 
 class CreatorDialog(QDialog):
     
-    description_filename = ''
+    
+    
     
     def __init__(self):
         QDialog.__init__(self)
         self.ui = uic.loadUi("extensioncreator.ui", self) 
-        self.ui.DescriptionFileDialog.clicked.connect(self.open_description_file)
+        self.ui.DescriptionFileDialog.clicked.connect(self.copy_description_file)
         self.ui.buttonBox.button(0x00000400).clicked.connect(self.createextension)
         
-    def open_description_file(self):
+    def copy_description_file(self):
         global description_filename
         extensionname = self.ui.ExtensionName.text().replace(' ', '')
         description_filename, _ = QFileDialog.getOpenFileName(
@@ -34,6 +37,7 @@ class CreatorDialog(QDialog):
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'description'), exist_ok=True)
             path = os.path.join(cwd, 'working_directory', extensionname, 'description')
             shutil.copy(description_filename, path)
+ 
         
     def createextension(self):
         extensionname = self.ui.ExtensionName.text().replace(' ', '')
@@ -44,6 +48,9 @@ class CreatorDialog(QDialog):
         platform = self.ui.Platform.currentText()
         libreofficeversion = self.ui.LibreOfficeVersion.currentText()
         accepted_by = self.ui.Accepted_by.currentText()
+        extension_license = self.ui.License.currentText().lower().split(' (')[0]
+        licensefilename = extension_license + '.' + 'txt'
+        licenserellink = os.path.join('registration', licensefilename)
         wb = self.ui.Website.text().strip()
         if validators.url(wb):
             website = wb
@@ -107,6 +114,9 @@ class CreatorDialog(QDialog):
         tag_registration = descriptionfile.createElement('registration')
         tag_simple_license = descriptionfile.createElement('simple-license')
         tag_simple_license.setAttribute('accept-by', accepted_by)
+        tag_license_text = descriptionfile.createElement('license-text')
+        tag_license_text.setAttribute('lang', 'en')
+        tag_license_text.setAttribute('xlink:href', licenserellink)
         tag_description.appendChild(tag_identifier)
         tag_description.appendChild(tag_version)
         tag_description.appendChild(tag_platform)
@@ -119,8 +129,10 @@ class CreatorDialog(QDialog):
         tag_description.appendChild(tag_icon)
         tag_dependencies.appendChild(tag_minimal_version)
         tag_description.appendChild(tag_dependencies)
-        tag_extension_description.appendChild(tag_src)
-        tag_description.appendChild(tag_extension_description)
+        if description_filename != '':
+            tag_extension_description.appendChild(tag_src)
+            tag_description.appendChild(tag_extension_description)
+        tag_simple_license.appendChild(tag_license_text)
         tag_registration.appendChild(tag_simple_license)
         tag_description.appendChild(tag_registration)
         descriptionfile.appendChild(tag_description)
@@ -130,6 +142,10 @@ class CreatorDialog(QDialog):
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'registration'), exist_ok=True)
 
         path = os.path.join(cwd, 'working_directory', extensionname)
+        licenseinputpath = os.path.join(cwd, 'license_files', licensefilename)
+        licenseoutputpath = os.path.join(cwd, 'working_directory', extensionname, 'registration', licensefilename)
+        
+        shutil.copy(licenseinputpath, licenseoutputpath)
         
         with open(os.path.join(path, 'description.xml'), 'w') as f:
             descriptionfile.writexml(f, "", "\t", "\n")
