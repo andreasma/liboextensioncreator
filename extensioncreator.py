@@ -14,17 +14,16 @@ from PyQt5 import uic
 
 cwd = os.getcwd()
 description_filename = ''
+icon_filename = ''
 
 
 class CreatorDialog(QDialog):
-    
-    
-    
     
     def __init__(self):
         QDialog.__init__(self)
         self.ui = uic.loadUi("extensioncreator.ui", self) 
         self.ui.DescriptionFileDialog.clicked.connect(self.copy_description_file)
+        self.ui.IconFileDialog.clicked.connect(self.copy_icon_file)
         self.ui.buttonBox.button(0x00000400).clicked.connect(self.createextension)
         
     def copy_description_file(self):
@@ -37,6 +36,17 @@ class CreatorDialog(QDialog):
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'description'), exist_ok=True)
             path = os.path.join(cwd, 'working_directory', extensionname, 'description')
             shutil.copy(description_filename, path)
+            
+    def copy_icon_file(self):
+        global icon_filename
+        extensionname = self.ui.ExtensionName.text().replace(' ', '')
+        icon_filename, _ = QFileDialog.getOpenFileName(
+            caption='Choose an icon file for your extension', filter='Image (*.png)'
+            )
+        if icon_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'images'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'images')
+            shutil.copy(icon_filename, path)
  
         
     def createextension(self):
@@ -98,7 +108,12 @@ class CreatorDialog(QDialog):
         if website != None:
             tag_name.setAttribute('xlink:href', website)
         tag_author = descriptionfile.createTextNode(author)
-        tag_icon = descriptionfile.createElement('icon')
+        if icon_filename != '':
+            iconname = ntpath.basename(icon_filename)
+            iconrellink = os.path.join('images', iconname)
+            tag_icon = descriptionfile.createElement('icon')
+            tag_icon_default = descriptionfile.createElement('default')
+            tag_icon_default.setAttribute('xlink:href', iconrellink)
         tag_dependencies = descriptionfile.createElement('dependencies')
         tag_dependencies.setAttribute('xmlns:lo', 'http://libreoffice.org/extensions/description/2011')
         tag_minimal_version = descriptionfile.createElement('lo:LibreOffice-minimal-version')
@@ -130,7 +145,9 @@ class CreatorDialog(QDialog):
         tag_name.appendChild(tag_author)
         tag_publisher.appendChild(tag_name)
         tag_description.appendChild(tag_publisher)
-        tag_description.appendChild(tag_icon)
+        if icon_filename != '':
+            tag_icon.appendChild(tag_icon_default)
+            tag_description.appendChild(tag_icon)
         tag_dependencies.appendChild(tag_minimal_version)
         tag_description.appendChild(tag_dependencies)
         if description_filename != '':
