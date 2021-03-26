@@ -59,17 +59,23 @@ class MyTabWidget(QWidget):
         # Create first tab 
         self.tab1.layout = QFormLayout(self)
         self.nameliboext = QLineEdit()
-        self.nameliboext.setObjectName('ExtensionName')
+        self.nameliboext.setObjectName('Extension Name')
         self.nameliboext.setMaxLength(30)
         self.nameliboext.editingFinished.connect(lambda: self.no_or_toshort_text1(self.nameliboext))
         self.tab1.layout.addRow("Name of your LibreOffice Extension, between 8 and 30 character",self.nameliboext)
         self.nameextauthor = QLineEdit()
+        self.nameextauthor.setObjectName('Author Name')
+        self.nameextauthor.editingFinished.connect(lambda: self.textbox_empty(self.nameextauthor))
         self.tab1.layout.addRow("Name of the extension author / publisher",self.nameextauthor)
         self.authorwebsite = QLineEdit()
         self.tab1.layout.addRow("URL of the author's / publisher's  website or blog", self.authorwebsite)      
         self.extversion = QLineEdit()
+        self.extversion.setObjectName('Extension Version')
+        self.extversion.editingFinished.connect(lambda: self.textbox_empty(self.extversion))
         self.tab1.layout.addRow("Version number of the extension (e.gl 0.1)", self.extversion)
         self.extidentifier = QLineEdit()
+        self.extidentifier.setObjectName('Extension Identifier')
+        self.extidentifier.editingFinished.connect(lambda: self.textbox_empty(self.extidentifier))
         self.tab1.layout.addRow("Identifier", self.extidentifier)
         self.showedname = QLineEdit()
         self.tab1.layout.addRow("Displayed Name", self.showedname)
@@ -327,7 +333,14 @@ class MyTabWidget(QWidget):
             QMessageBox.critical(self, widgetname, "Your input is to short. You need to add more characters.")
         else:
             pass
-        
+    
+    
+    def textbox_empty(self, widget):
+        widgetname = widget.objectName()
+        if widget.text() == '':
+            QMessageBox.critical(self, widgetname, "Empty value are not allowed.")
+        else:
+            pass
         
            
     def copy_description_file(self):
