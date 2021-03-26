@@ -8,8 +8,8 @@ import ntpath
 from xml.dom import minidom
 from zipfile import ZipFile
 import validators
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog
+from PyQt5.QtCore import QRect
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog, QMessageBox
 
 
 cwd = os.getcwd()
@@ -59,7 +59,10 @@ class MyTabWidget(QWidget):
         # Create first tab 
         self.tab1.layout = QFormLayout(self)
         self.nameliboext = QLineEdit()
-        self.tab1.layout.addRow("Name of your LibreOffice Extension",self.nameliboext)
+        self.nameliboext.setObjectName('ExtensionName')
+        self.nameliboext.setMaxLength(30)
+        self.nameliboext.editingFinished.connect(lambda: self.no_or_toshort_text1(self.nameliboext))
+        self.tab1.layout.addRow("Name of your LibreOffice Extension, between 8 and 30 character",self.nameliboext)
         self.nameextauthor = QLineEdit()
         self.tab1.layout.addRow("Name of the extension author / publisher",self.nameextauthor)
         self.authorwebsite = QLineEdit()
@@ -119,14 +122,14 @@ class MyTabWidget(QWidget):
         self.descr.setText('Description / Documentation of the Extension (*.txt) (English Language)')
         self.descrbutton = QPushButton()
         self.descrbutton.setText('Choose File')
-        self.descrbutton.setGeometry(QtCore.QRect(200, 150, 93, 28)) 
+        self.descrbutton.setGeometry(QRect(200, 150, 93, 28)) 
         self.tab1.layout.addRow(self.descr, self.descrbutton)
         self.descrbutton.clicked.connect(self.copy_description_file)
         self.exticon = QLabel()
         self.exticon.setText('Choose an Icon for your extension, if you already created one.')
         self.exticonbutton = QPushButton()
         self.exticonbutton.setText('Choose an Icon')
-        self.exticonbutton.setGeometry(QtCore.QRect(200,150,93,28))
+        self.exticonbutton.setGeometry(QRect(200,150,93,28))
         self.tab1.layout.addRow(self.exticon, self.exticonbutton)
         self.exticonbutton.clicked.connect(self.copy_icon_file)
         self.button_label = QLabel()
@@ -150,9 +153,9 @@ class MyTabWidget(QWidget):
         self.ack.addItem('user')
         self.extlicense = QLabel()
         self.extlicense.setText('Choose a license for your extension')
-        self.extlicense.setGeometry(QtCore.QRect(500, 150, 93, 28))
+        self.extlicense.setGeometry(QRect(500, 150, 93, 28))
         self.eli = QComboBox()
-        self.eli.setGeometry(QtCore.QRect(200, 150, 93, 28))
+        self.eli.setGeometry(QRect(200, 150, 93, 28))
         self.tab2.layout.addRow(self.extlicense, self.eli)
         self.eli.addItem('GPL-2.0 (General Public License Version 2.0)')
         self.eli.addItem('GPL-3.0 (General Public License Version 3.0)')
@@ -315,6 +318,15 @@ class MyTabWidget(QWidget):
             
     def reject(self):
         pass
+    
+    def no_or_toshort_text1(self, widget):
+        widgetname = widget.objectName()
+        if widget.text() == '':            
+            QMessageBox.critical(self, widgetname, "Empty value are not allowed.")
+        elif len(widget.text()) < 8:
+            QMessageBox.critical(self, widgetname, "Your input is to short. You need to add more characters.")
+        else:
+            pass
         
         
            
@@ -338,7 +350,7 @@ class MyTabWidget(QWidget):
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'images'), exist_ok=True)
             path = os.path.join(cwd, 'working_directory', extensionname, 'images')
             shutil.copy(icon_filename, path)
-        
+
 
   
 if __name__ == '__main__': 
