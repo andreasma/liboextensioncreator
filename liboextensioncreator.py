@@ -9,7 +9,7 @@ from xml.dom import minidom
 from zipfile import ZipFile
 import validators
 from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog, QMessageBox, QGroupBox, QGridLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog, QMessageBox, QGroupBox, QGridLayout, QRadioButton
 
 
 cwd = os.getcwd()
@@ -182,6 +182,17 @@ class MyTabWidget(QWidget):
         self.tab3.layout = QFormLayout(self)
         self.contentkindbox = QGroupBox('Which kind of content extension to build?')
         gridbox0 = QGridLayout()
+        self.radiobuttonautocorrect = QRadioButton('AutoCorrect Extension')
+        gridbox0.addWidget(self.radiobuttonautocorrect, 0, 0)
+        self.radiobuttonautotext = QRadioButton('AutoText Extension')
+        gridbox0.addWidget(self.radiobuttonautotext, 0, 1)
+        self.radiobuttongallery = QRadioButton('Gallery Extension')
+        self.radiobuttongallery.toggled.connect(lambda: self.galleryextcreation(self.radiobuttongallery))
+        gridbox0.addWidget(self.radiobuttongallery, 0, 3)
+        self.radiobuttonpalette = QRadioButton('Palette Extension')
+        gridbox0.addWidget(self.radiobuttonpalette, 1, 0)
+        self.radiobuttontemplates = QRadioButton('Template Extension')
+        gridbox0.addWidget(self.radiobuttontemplates, 1, 1)
         self.contentkindbox.setLayout(gridbox0)
         self.gallerybox = QGroupBox('Gallery Extension')
         gridbox1 = QGridLayout()
@@ -203,15 +214,14 @@ class MyTabWidget(QWidget):
         self.thm_file_button = QPushButton()
         self.thm_file_button.setText('Choose the thm file')
         self.thm_file_button.setGeometry(QRect(200, 150,20, 28))
-        self.thm_file_button.clicked.connect(self.copy_thm_file)
-        
-        
+        self.thm_file_button.clicked.connect(self.copy_thm_file)        
         gridbox1.addWidget(self.label_sdg_file, 0, 0)
         gridbox1.addWidget(self.sdg_file_button, 0, 1)
         gridbox1.addWidget(self.label_sdv_file, 1, 0)
         gridbox1.addWidget(self.sdv_file_button, 1, 1)
         gridbox1.addWidget(self.label_thm_file, 2, 0)
         gridbox1.addWidget(self.thm_file_button, 2, 1)
+        self.gallerybox.setEnabled(False)
         
         self.tab3.layout.addWidget(self.contentkindbox)
         self.tab3.layout.addWidget(self.gallerybox)
@@ -383,6 +393,12 @@ class MyTabWidget(QWidget):
         else:
             pass
         
+    def galleryextcreation(self, b):
+        if b.isChecked() == True:
+            self.gallerybox.setEnabled(True)
+        else:
+            self.gallerybox.setEnabled(False)
+
            
     def copy_description_file(self):
         global description_filename
