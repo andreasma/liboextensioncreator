@@ -9,7 +9,7 @@ from xml.dom import minidom
 from zipfile import ZipFile
 import validators
 from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog, QMessageBox, QGroupBox, QGridLayout
 
 
 cwd = os.getcwd()
@@ -176,6 +176,47 @@ class MyTabWidget(QWidget):
         self.tab2.layout.addRow(self.soupdbox, self.soupd)
         self.tab2.layout.addRow(self.sifreqbox, self.sifreq)
         self.tab2.setLayout(self.tab2.layout)
+        
+        
+        # Create third tab
+        self.tab3.layout = QFormLayout(self)
+        self.contentkindbox = QGroupBox('Which kind of content extension to build?')
+        gridbox0 = QGridLayout()
+        self.contentkindbox.setLayout(gridbox0)
+        self.gallerybox = QGroupBox('Gallery Extension')
+        gridbox1 = QGridLayout()
+        self.gallerybox.setLayout(gridbox1)
+        self.label_sdg_file = QLabel()
+        self.label_sdg_file.setText('Choose the *.sdg file for your Gallery Extension')
+        self.sdg_file_button = QPushButton()
+        self.sdg_file_button.setText('Choose the sdg file')
+        self.sdg_file_button.setGeometry(QRect(200, 150,20, 28))
+        self.sdg_file_button.clicked.connect(self.copy_sdg_file)
+        self.label_sdv_file = QLabel()
+        self.label_sdv_file.setText('Choose the *.sdv file for your Gallery Extension')
+        self.sdv_file_button = QPushButton()
+        self.sdv_file_button.setText('Choose the sdv file')
+        self.sdv_file_button.setGeometry(QRect(200, 150,20, 28))
+        self.sdv_file_button.clicked.connect(self.copy_sdv_file)
+        self.label_thm_file = QLabel()
+        self.label_thm_file.setText('Choose the *.thm file for your Gallery Extension')
+        self.thm_file_button = QPushButton()
+        self.thm_file_button.setText('Choose the thm file')
+        self.thm_file_button.setGeometry(QRect(200, 150,20, 28))
+        self.thm_file_button.clicked.connect(self.copy_thm_file)
+        
+        
+        gridbox1.addWidget(self.label_sdg_file, 0, 0)
+        gridbox1.addWidget(self.sdg_file_button, 0, 1)
+        gridbox1.addWidget(self.label_sdv_file, 1, 0)
+        gridbox1.addWidget(self.sdv_file_button, 1, 1)
+        gridbox1.addWidget(self.label_thm_file, 2, 0)
+        gridbox1.addWidget(self.thm_file_button, 2, 1)
+        
+        self.tab3.layout.addWidget(self.contentkindbox)
+        self.tab3.layout.addWidget(self.gallerybox)
+        
+        self.tab3.setLayout(self.tab3.layout)
   
         # Add tabs to widget 
         self.layout.addWidget(self.tabs) 
@@ -363,6 +404,38 @@ class MyTabWidget(QWidget):
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'images'), exist_ok=True)
             path = os.path.join(cwd, 'working_directory', extensionname, 'images')
             shutil.copy(icon_filename, path)
+            
+            
+    def copy_sdg_file(self):
+        sdg_filename, _ = QFileDialog.getOpenFileName(
+            caption='Choose the sdg file for your Gallery extension', filter='Image (*.sdg)'
+            )
+        if sdg_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
+            shutil.copy(sdg_filename, path)
+            
+            
+                
+    def copy_sdv_file(self):
+        sdv_filename, _ = QFileDialog.getOpenFileName(
+            caption='Choose the sdv file for your Gallery extension', filter='Image (*.sdv)'
+            )
+        if sdv_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
+            shutil.copy(sdv_filename, path)
+
+
+                
+    def copy_thm_file(self):
+        thm_filename, _ = QFileDialog.getOpenFileName(
+            caption='Choose the thm file for your Gallery extension', filter='Image (*.thm)'
+            )
+        if thm_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
+            shutil.copy(thm_filename, path)
 
 
   
