@@ -224,9 +224,13 @@ class MyTabWidget(QWidget):
         gridbox1.addWidget(self.label_thm_file, 2, 0)
         gridbox1.addWidget(self.thm_file_button, 2, 1)
         self.gallerybox.setEnabled(False)
+        self.templatebox = QGroupBox('Template Extension')
+        gridbox2 = QGridLayout()
+        self.templatebox.setLayout(gridbox2)
         
         self.tab3.layout.addWidget(self.contentkindbox)
         self.tab3.layout.addWidget(self.gallerybox)
+        self.tab3.layout.addWidget(self.templatebox)
         
         self.tab3.setLayout(self.tab3.layout)
   
