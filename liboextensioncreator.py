@@ -190,13 +190,16 @@ class MyTabWidget(QWidget):
         self.radiobuttonautocorrect.toggled.connect(lambda: self.autocorrectextcreation(self.radiobuttonautocorrect))
         gridbox0.addWidget(self.radiobuttonautocorrect, 0, 0)
         self.radiobuttonautotext = QRadioButton('AutoText Extension')
+        self.radiobuttonautotext.toggled.connect(lambda: self.autotextextcreation(self.radiobuttonautotext))
         gridbox0.addWidget(self.radiobuttonautotext, 0, 1)
-        self.radiobuttoniconset = QRadioButton('IconSet Extension')
-        gridbox0.addWidget(self.radiobuttoniconset, 0, 2)
         self.radiobuttongallery = QRadioButton('Gallery Extension')
         self.radiobuttongallery.toggled.connect(lambda: self.galleryextcreation(self.radiobuttongallery))
-        gridbox0.addWidget(self.radiobuttongallery, 1, 0)
+        gridbox0.addWidget(self.radiobuttongallery, 0, 2)
+        self.radiobuttoniconset = QRadioButton('IconSet Extension')
+        self.radiobuttoniconset.toggled.connect(lambda: self.iconsetextcreation(self.radiobuttoniconset))
+        gridbox0.addWidget(self.radiobuttoniconset, 1, 0)
         self.radiobuttonpalette = QRadioButton('Palette Extension')
+        self.radiobuttonpalette.toggled.connect(lambda: self.paletteextcreation(self.radiobuttonpalette))
         gridbox0.addWidget(self.radiobuttonpalette, 1, 1)
         self.radiobuttontemplates = QRadioButton('Template Extension')
         self.radiobuttontemplates.toggled.connect(lambda: self.templateextcreation(self.radiobuttontemplates))
@@ -210,13 +213,9 @@ class MyTabWidget(QWidget):
         gridbox2 = QGridLayout()
         self.autotextbox.setLayout(gridbox2)
         self.autotextbox.setEnabled(False)
-        self.iconbox = QGroupBox('IconSet Extension')
-        gridbox3 = QGridLayout()
-        self.iconbox.setLayout(gridbox3)
-        self.iconbox.setEnabled(False)
         self.gallerybox = QGroupBox('Gallery Extension')
-        gridbox4 = QGridLayout()
-        self.gallerybox.setLayout(gridbox4)
+        gridbox3 = QGridLayout()
+        self.gallerybox.setLayout(gridbox3)
         self.label_sdg_file = QLabel()
         self.label_sdg_file.setText('Choose the *.sdg file for your Gallery Extension')
         self.sdg_file_button = QPushButton()
@@ -235,13 +234,17 @@ class MyTabWidget(QWidget):
         self.thm_file_button.setText('Choose the thm file')
         self.thm_file_button.setGeometry(QRect(200, 150,20, 28))
         self.thm_file_button.clicked.connect(self.copy_thm_file)        
-        gridbox4.addWidget(self.label_sdg_file, 0, 0)
-        gridbox4.addWidget(self.sdg_file_button, 0, 1)
-        gridbox4.addWidget(self.label_sdv_file, 1, 0)
-        gridbox4.addWidget(self.sdv_file_button, 1, 1)
-        gridbox4.addWidget(self.label_thm_file, 2, 0)
-        gridbox4.addWidget(self.thm_file_button, 2, 1)
+        gridbox3.addWidget(self.label_sdg_file, 0, 0)
+        gridbox3.addWidget(self.sdg_file_button, 0, 1)
+        gridbox3.addWidget(self.label_sdv_file, 1, 0)
+        gridbox3.addWidget(self.sdv_file_button, 1, 1)
+        gridbox3.addWidget(self.label_thm_file, 2, 0)
+        gridbox3.addWidget(self.thm_file_button, 2, 1)
         self.gallerybox.setEnabled(False)
+        self.iconbox = QGroupBox('IconSet Extension')
+        gridbox4 =QGridLayout()
+        self.iconbox.setLayout(gridbox4)
+        self.iconbox.setEnabled(False)
         self.palettebox = QGroupBox('Palette Extension')
         gridbox5 = QGridLayout()
         self.palettebox.setLayout(gridbox5)
@@ -254,8 +257,8 @@ class MyTabWidget(QWidget):
         self.tab3.layout.addWidget(self.contentkindbox)
         self.tab3.layout.addWidget(self.autocorbox)
         self.tab3.layout.addWidget(self.autotextbox)
-        self.tab3.layout.addWidget(self.iconbox)
         self.tab3.layout.addWidget(self.gallerybox)
+        self.tab3.layout.addWidget(self.iconbox)
         self.tab3.layout.addWidget(self.palettebox)
         self.tab3.layout.addWidget(self.templatebox)
         
@@ -461,12 +464,31 @@ class MyTabWidget(QWidget):
             self.autocorbox.setEnabled(True)
         else:
             self.autocorbox.setEnabled(False)
-        
+            
+    def autotextextcreation(self, b):
+        if b.isChecked() == True:
+            self.autotextbox.setEnabled(True)
+        else:
+            self.autotextbox.setEnabled(False)
+
     def galleryextcreation(self, b):
         if b.isChecked() == True:
             self.gallerybox.setEnabled(True)
         else:
             self.gallerybox.setEnabled(False)
+    
+                
+    def iconsetextcreation(self, b):
+        if b.isChecked() == True:
+            self.iconbox.setEnabled(True)
+        else:
+            self.iconbox.setEnabled(False)
+            
+    def paletteextcreation(self, b):
+        if b.isChecked() == True:
+            self.palettebox.setEnabled(True)
+        else:
+            self.palettebox.setEnabled(False)
             
     def templateextcreation(self, b):
         if b.isChecked() == True:
