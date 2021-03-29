@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
-import sys
+import ntpath
 import os
 import shutil
-import ntpath
+import sys
 from xml.dom import minidom
 from zipfile import ZipFile
+
 import validators
 from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget, QVBoxLayout, QLabel, QLineEdit, QFormLayout, QVBoxLayout, QHBoxLayout, QComboBox, QDialogButtonBox, QCheckBox, QFileDialog, QMessageBox, QGroupBox, QGridLayout, QRadioButton
-
+from PyQt5.QtWidgets import (QAction, QApplication, QCheckBox, QComboBox,
+                             QDialogButtonBox, QFileDialog, QFormLayout,
+                             QGridLayout, QGroupBox, QHBoxLayout, QLabel,
+                             QLineEdit, QMainWindow, QMessageBox, QPushButton,
+                             QRadioButton, QTabWidget, QVBoxLayout, QWidget)
 
 cwd = os.getcwd()
 description_filename = ''
@@ -183,6 +187,7 @@ class MyTabWidget(QWidget):
         self.contentkindbox = QGroupBox('Which kind of content extension to build?')
         gridbox0 = QGridLayout()
         self.radiobuttonautocorrect = QRadioButton('AutoCorrect Extension')
+        self.radiobuttonautocorrect.toggled.connect(lambda: self.autocorrectextcreation(self.radiobuttonautocorrect))
         gridbox0.addWidget(self.radiobuttonautocorrect, 0, 0)
         self.radiobuttonautotext = QRadioButton('AutoText Extension')
         gridbox0.addWidget(self.radiobuttonautotext, 0, 1)
@@ -194,12 +199,21 @@ class MyTabWidget(QWidget):
         self.radiobuttonpalette = QRadioButton('Palette Extension')
         gridbox0.addWidget(self.radiobuttonpalette, 1, 1)
         self.radiobuttontemplates = QRadioButton('Template Extension')
+        self.radiobuttontemplates.toggled.connect(lambda: self.templateextcreation(self.radiobuttontemplates))
         gridbox0.addWidget(self.radiobuttontemplates, 1, 2)
         self.contentkindbox.setLayout(gridbox0)
         self.autocorbox = QGroupBox('AutoCorrect Extension')
         gridbox1 = QGridLayout()
         self.autocorbox.setLayout(gridbox1)
         self.autocorbox.setEnabled(False)
+        self.autotextbox = QGroupBox('AutoText Extension')
+        gridbox2 = QGridLayout()
+        self.autotextbox.setLayout(gridbox2)
+        self.autotextbox.setEnabled(False)
+        self.iconbox = QGroupBox('IconSet Extension')
+        gridbox3 = QGridLayout()
+        self.iconbox.setLayout(gridbox3)
+        self.iconbox.setEnabled(False)
         self.gallerybox = QGroupBox('Gallery Extension')
         gridbox4 = QGridLayout()
         self.gallerybox.setLayout(gridbox4)
@@ -228,13 +242,21 @@ class MyTabWidget(QWidget):
         gridbox4.addWidget(self.label_thm_file, 2, 0)
         gridbox4.addWidget(self.thm_file_button, 2, 1)
         self.gallerybox.setEnabled(False)
+        self.palettebox = QGroupBox('Palette Extension')
+        gridbox5 = QGridLayout()
+        self.palettebox.setLayout(gridbox5)
+        self.palettebox.setEnabled(False)
         self.templatebox = QGroupBox('Template Extension')
         gridbox6 = QGridLayout()
         self.templatebox.setLayout(gridbox6)
         self.templatebox.setEnabled(False)
         
         self.tab3.layout.addWidget(self.contentkindbox)
+        self.tab3.layout.addWidget(self.autocorbox)
+        self.tab3.layout.addWidget(self.autotextbox)
+        self.tab3.layout.addWidget(self.iconbox)
         self.tab3.layout.addWidget(self.gallerybox)
+        self.tab3.layout.addWidget(self.palettebox)
         self.tab3.layout.addWidget(self.templatebox)
         
         self.tab3.setLayout(self.tab3.layout)
@@ -434,11 +456,23 @@ class MyTabWidget(QWidget):
         else:
             pass
         
+    def autocorrectextcreation(self, b):
+        if b.isChecked() == True:
+            self.autocorbox.setEnabled(True)
+        else:
+            self.autocorbox.setEnabled(False)
+        
     def galleryextcreation(self, b):
         if b.isChecked() == True:
             self.gallerybox.setEnabled(True)
         else:
             self.gallerybox.setEnabled(False)
+            
+    def templateextcreation(self, b):
+        if b.isChecked() == True:
+            self.templatebox.setEnabled(True)
+        else:
+            self.templatebox.setEnabled(False)
 
            
     def copy_description_file(self):
