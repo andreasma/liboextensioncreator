@@ -171,6 +171,8 @@ class MyTabWidget(QWidget):
         self.eli.addItem('GPL-3.0 (General Public License Version 3.0)')
         self.eli.addItem('LGPL-3.0 (Lesser General Public License Version 3.0)')
         self.eli.addItem('LGPL-2.1 (Lesser General Public License Version 2.1)')
+        self.eli.addItem('CC-BY-SA-4.0 (Creative Commons Attribution-ShareAlike 4.0 International License')
+
         self.soupd = QLabel()
         self.soupd.setText('suppress-on-update')
         self.soupdbox = QCheckBox()
