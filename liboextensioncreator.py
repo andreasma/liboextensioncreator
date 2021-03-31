@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (QAction, QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QFormLayout,
                              QGridLayout, QGroupBox, QHBoxLayout, QLabel,
                              QLineEdit, QMainWindow, QMessageBox, QPushButton,
-                             QRadioButton, QTabWidget, QVBoxLayout, QWidget)
+                             QRadioButton, QTabWidget, QVBoxLayout, QWidget, QSpinBox)
 
 cwd = os.getcwd()
 description_filename = ''
@@ -52,8 +52,14 @@ class MyTabWidget(QWidget):
         self.tabs = QTabWidget() 
         self.tab1 = QWidget() 
         self.tab2 = QWidget() 
-        self.tab3 = QWidget() 
-        self.tabs.resize(600, 500) 
+        self.tab3 = QWidget()
+        self.tabs.resize(600, 800)
+        
+        self.items = []
+        self.item_count = 0
+        self.lineEdit = QLineEdit
+
+
   
         # Add tabs 
         self.tabs.addTab(self.tab1, "General") 
@@ -211,13 +217,16 @@ class MyTabWidget(QWidget):
         gridbox1 = QGridLayout()
         self.autocorbox.setLayout(gridbox1)
         self.autocorbox.setEnabled(False)
+        self.autocorbox.hide()
         self.autotextbox = QGroupBox('AutoText Extension')
         gridbox2 = QGridLayout()
         self.autotextbox.setLayout(gridbox2)
         self.autotextbox.setEnabled(False)
+        self.autotextbox.hide()
         self.gallerybox = QGroupBox('Gallery Extension')
         gridbox3 = QGridLayout()
         self.gallerybox.setLayout(gridbox3)
+        self.gallerybox.hide()
         self.label_sdg_file = QLabel()
         self.label_sdg_file.setText('Choose the *.sdg file for your Gallery Extension')
         self.sdg_file_button = QPushButton()
@@ -247,15 +256,43 @@ class MyTabWidget(QWidget):
         gridbox4 =QGridLayout()
         self.iconbox.setLayout(gridbox4)
         self.iconbox.setEnabled(False)
+        self.iconbox.hide()
         self.palettebox = QGroupBox('Palette Extension')
         gridbox5 = QGridLayout()
         self.palettebox.setLayout(gridbox5)
         self.palettebox.setEnabled(False)
+        self.palettebox.hide()
+        self.labelnamepalette = QLabel('Name of the Palette')
+        self.namepalette = QLineEdit()
+        self.namepalette.setObjectName('Palette Name')
+        self.numbercolorsbox = QGroupBox()
+        gridbox5a = QGridLayout()
+        self.numbercolorsbox.setLayout(gridbox5a)
+        self.labelnumbercolor = QLabel('Number of Colors for the Palette')
+        self.spinboxcolors = QSpinBox()
+        self.spinboxcolors.setRange(0, 15)
+        self.spinboxcolors.valueChanged.connect(self.set_item_count)
+        self.colorsbox = QGroupBox('Colors')
+        self.item_layout = QVBoxLayout(self.colorsbox)
+        self.item_layout.addStretch(2)
+        self.label_colors = QLabel("Insert per box 'color name, hexadecimal number'")
+
+        self.numcolorsbutton = QPushButton("apply", clicked=self.on_clicked)
+        gridbox5a.addWidget(self.labelnumbercolor,0, 0, 1, 2)
+        gridbox5a.addWidget(self.spinboxcolors,  0, 2, 1, 1)
+        gridbox5a.addWidget(self.numcolorsbutton, 1, 0, 1, 2)
+        gridbox5a.addWidget(self.label_colors, 2, 0, 1, 3)
+        gridbox5a.addWidget(self.colorsbox, 3, 0, 5, 3)
+        gridbox5.addWidget(self.labelnamepalette, 0, 0)
+        gridbox5.addWidget(self.namepalette, 0, 1)
+        gridbox5.addWidget(self.numbercolorsbox, 1, 0)
+        
+        
         self.templatebox = QGroupBox('Template Extension')
         gridbox6 = QGridLayout()
         self.templatebox.setLayout(gridbox6)
         self.templatebox.setEnabled(False)
-        
+        self.templatebox.hide()
         self.tab3.layout.addWidget(self.contentkindbox)
         self.tab3.layout.addWidget(self.autocorbox)
         self.tab3.layout.addWidget(self.autotextbox)
@@ -265,6 +302,8 @@ class MyTabWidget(QWidget):
         self.tab3.layout.addWidget(self.templatebox)
         
         self.tab3.setLayout(self.tab3.layout)
+        
+ 
   
         # Add tabs to widget 
         self.layout.addWidget(self.tabs) 
@@ -355,7 +394,7 @@ class MyTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
-       if self.radiobuttonpalette.isChecked() == True:
+        if self.radiobuttonpalette.isChecked() == True:
             ng1 = path_xcu_file.createElement('node')
             ng1.setAttribute('oor-name', 'Paths')
             ng2 = path_xcu_file.createElement('node')
@@ -509,39 +548,67 @@ class MyTabWidget(QWidget):
     def autocorrectextcreation(self, b):
         if b.isChecked() == True:
             self.autocorbox.setEnabled(True)
+            self.autocorbox.show()
         else:
             self.autocorbox.setEnabled(False)
+            self.autocorbox.hide()
             
     def autotextextcreation(self, b):
         if b.isChecked() == True:
             self.autotextbox.setEnabled(True)
+            self.autotextbox.show()
         else:
             self.autotextbox.setEnabled(False)
+            self.autotextbox.hide()
 
     def galleryextcreation(self, b):
         if b.isChecked() == True:
             self.gallerybox.setEnabled(True)
+            self.gallerybox.show()
         else:
             self.gallerybox.setEnabled(False)
+            self.gallerybox.hide()
     
                 
     def iconsetextcreation(self, b):
         if b.isChecked() == True:
             self.iconbox.setEnabled(True)
+            self.iconbox.show()
         else:
             self.iconbox.setEnabled(False)
+            self.iconbox.hide()
             
     def paletteextcreation(self, b):
         if b.isChecked() == True:
             self.palettebox.setEnabled(True)
+            self.palettebox.show()
         else:
             self.palettebox.setEnabled(False)
+            self.palettebox.hide()
+            
+    def on_clicked(self):
+        print( *[ item.text() for item in  self.items[:self.spinboxcolors.value()] ], sep="\n" )
+
+    
+    def set_item_count(self, new_count:int):
+        n_items = len(self.items)
+        for ii in range(n_items, new_count):
+            item = self.lineEdit(self)
+            self.items.append(item)
+            self.item_layout.insertWidget(n_items, item)
+        for ii in range(self.item_count, new_count):
+            self.item_layout.itemAt(ii).widget().show()
+        for ii in range(new_count, self.item_count):
+            self.item_layout.itemAt(ii).widget().hide()
+        self.item_count = new_count
             
     def templateextcreation(self, b):
         if b.isChecked() == True:
             self.templatebox.setEnabled(True)
+            self.templatebox.show()
         else:
             self.templatebox.setEnabled(False)
+            self.templatebox.hide()
 
            
     def copy_description_file(self):
