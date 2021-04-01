@@ -218,6 +218,11 @@ class MyTabWidget(QWidget):
         self.autocorbox.setLayout(gridbox1)
         self.autocorbox.setEnabled(False)
         self.autocorbox.hide()
+        self.label_dat_file = QLabel('Choose the *.dat file for your AutoCorrect Extension')
+        self.dat_file_button = QPushButton('Choose the *.dat file')
+        self.dat_file_button.clicked.connect(self.copy_dat_file)
+        gridbox1.addWidget(self.label_dat_file, 0, 0)
+        gridbox1.addWidget(self.dat_file_button, 0, 1)
         self.autotextbox = QGroupBox('AutoText Extension')
         gridbox2 = QGridLayout()
         self.autotextbox.setLayout(gridbox2)
@@ -631,6 +636,15 @@ class MyTabWidget(QWidget):
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'images'), exist_ok=True)
             path = os.path.join(cwd, 'working_directory', extensionname, 'images')
             shutil.copy(icon_filename, path)
+            
+    def copy_dat_file(self):
+        dat_filename, _ = QFileDialog.getOpenFileName(
+            caption='Choose the dat file for your AutoCorrect extension', filter='Image (*.dat)'
+            )
+        if dat_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'autocorr'), exist_ok=True)
+            path= os.path.join(cwd, 'working_directory', extensionname, 'autocorr')
+            shutil.copy(dat_filename, path)
             
             
     def copy_sdg_file(self):
