@@ -20,6 +20,7 @@ cwd = os.getcwd()
 description_filename = ''
 icon_filename = ''
 extensionname = ''
+palettename = ''
 
 
 class CreatorApp(QMainWindow):
@@ -513,6 +514,22 @@ class MyTabWidget(QWidget):
         descriptionfile.appendChild(tag_description)
         
         
+        #building *soc file for palette extension
+        if self.radiobuttonpalette.isChecked() == True:
+            global palettename
+            palettename = self.namepalette.text()
+            palettecolors = dict((item.text()).split(',') for item in self.items[:self.spinboxcolors.value()])
+            palette_soc_file = minidom.Document()
+            tag_color_table = palette_soc_file.createElement('ooo:color-table')
+            tag_color_table.setAttribute('xmlns:office', 'urn:oasis:names:tc:opendocument:xmlns:office:1.0')
+            tag_color_table.setAttribute('xmlns:draw', 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0')
+            tag_color_table.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+            tag_color_table.setAttribute('xmlns:svg', 'http://www.w3.org/2000/svg')
+            tag_color_table.setAttribute('xmlns:ooo', 'http://openoffice.org/2004/office')
+            
+            palette_soc_file.appendChild(tag_color_table)
+        
+        
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'META-INF'), exist_ok=True)
         os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'registration'), exist_ok=True)
         path = os.path.join(cwd, 'working_directory', extensionname)
@@ -530,6 +547,12 @@ class MyTabWidget(QWidget):
         with open(os.path.join(path, 'path.xcu'), 'w') as f:
             path_xcu_file.writexml(f, "", "\t", "\n")
             
+        if self.radiobuttonpalette.isChecked() == True:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'palette'), exist_ok=True)
+            palettfilename = (palettename + '.soc')
+            with open(os.path.join(path, 'palette', palettfilename), 'w') as f:
+                palette_soc_file.writexml(f, "", "\t", "\n")
+
         
         with ZipFile(extensionname + '.' + 'oxt', 'w') as liboextensionzip:
             os.chdir(path)
