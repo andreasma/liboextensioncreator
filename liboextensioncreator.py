@@ -303,6 +303,11 @@ class MyTabWidget(QWidget):
         self.templatebox.setLayout(gridbox6)
         self.templatebox.setEnabled(False)
         self.templatebox.hide()
+        self.label_template_ziparchive = QLabel('Choose the *.zip archive for your Template Extension')
+        self.tempate_archive_button = QPushButton('Choose the *.zip archive')
+        self.tempate_archive_button.clicked.connect(self.copy_template_archive)
+        gridbox6.addWidget(self.label_template_ziparchive, 0, 0)
+        gridbox6.addWidget(self.tempate_archive_button, 0, 1)
         self.tab3.layout.addWidget(self.contentkindbox)
         self.tab3.layout.addWidget(self.autocorbox)
         self.tab3.layout.addWidget(self.autotextbox)
@@ -691,6 +696,15 @@ class MyTabWidget(QWidget):
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
             path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
             shutil.copy(thm_filename, path)
+            
+    def copy_template_archive(self):
+        template_archivename, _ = QFileDialog.getOpenFileName(
+            caption='Choose the zip archive for your Template extension', filter='Archive (*.zip)'
+            )
+        if template_archivename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'template'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'template')
+            shutil.unpack_archive(template_archivename, path)
 
 
   
