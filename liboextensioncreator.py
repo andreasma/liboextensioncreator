@@ -228,6 +228,11 @@ class MyTabWidget(QWidget):
         self.autotextbox.setLayout(gridbox2)
         self.autotextbox.setEnabled(False)
         self.autotextbox.hide()
+        self.label_bau_file = QLabel('Choose the *.bau file for your AutoText Extension')
+        self.bau_file_button = QPushButton('Choose the *.bau file')
+        self.bau_file_button.clicked.connect(self.copy_bau_file)
+        gridbox2.addWidget(self.label_bau_file, 0, 0)
+        gridbox2.addWidget(self.bau_file_button, 0, 1)
         self.gallerybox = QGroupBox('Gallery Extension')
         gridbox3 = QGridLayout()
         self.gallerybox.setLayout(gridbox3)
@@ -643,8 +648,17 @@ class MyTabWidget(QWidget):
             )
         if dat_filename:
             os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'autocorr'), exist_ok=True)
-            path= os.path.join(cwd, 'working_directory', extensionname, 'autocorr')
+            path = os.path.join(cwd, 'working_directory', extensionname, 'autocorr')
             shutil.copy(dat_filename, path)
+            
+    def copy_bau_file(self):
+        bau_filename, _ = QFileDialog.getOpenFileName(
+            caption='Choose the bau file for your AutoText extension', filter='Image (*.bau)'
+            )
+        if bau_filename:
+            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'autotext'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory', extensionname, 'autotext')
+            shutil.copy(bau_filename, path)
             
             
     def copy_sdg_file(self):
