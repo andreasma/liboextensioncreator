@@ -36,8 +36,6 @@ class CreatorApp(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
         self.group_widget = MyGroupWidget(self)
-        gridwindow = QGridLayout()
-        self.group_widget.setLayout(gridwindow)
         self.setCentralWidget(self.group_widget)
         self.show()
 
@@ -95,42 +93,43 @@ class MyTabWidget(QWidget):
         self.tabs.addTab(self.tab3, "Extension Content")
 
         # Create first tab
-        self.tab1.layout = QFormLayout(self)
+        formbox = QFormLayout()
+        self.tab1.setLayout(formbox)
         self.nameliboext = QLineEdit()
         self.nameliboext.setObjectName('Extension Name')
         self.nameliboext.setMaxLength(30)
         self.nameliboext.editingFinished.connect(
             lambda: self.no_or_toshort_text1(self.nameliboext))
-        self.tab1.layout.addRow(
+        formbox.addRow(
             'Name of your LibreOffice Extension, between 8 and 30 character',
             self.nameliboext)
         self.nameextauthor = QLineEdit()
         self.nameextauthor.setObjectName('Author Name')
         self.nameextauthor.editingFinished.connect(
             lambda: self.textbox_empty(self.nameextauthor))
-        self.tab1.layout.addRow("Name of the extension author / publisher",
+        formbox.addRow("Name of the extension author / publisher",
                                 self.nameextauthor)
         self.authorwebsite = QLineEdit()
-        self.tab1.layout.addRow("URL of the author's / publisher's  "
+        formbox.addRow("URL of the author's / publisher's  "
                                 'website or blog',
                                 self.authorwebsite)
         self.extversion = QLineEdit()
         self.extversion.setObjectName('Extension Version')
         self.extversion.editingFinished.connect(
             lambda: self.textbox_empty(self.extversion))
-        self.tab1.layout.addRow("Version number of the extension (e.gl 0.1)",
+        formbox.addRow("Version number of the extension (e.gl 0.1)",
                                 self.extversion)
         self.extidentifier = QLineEdit()
         self.extidentifier.setObjectName('Extension Identifier')
         self.extidentifier.editingFinished.connect(
             lambda: self.textbox_empty(self.extidentifier))
-        self.tab1.layout.addRow("Identifier", self.extidentifier)
+        formbox.addRow("Identifier", self.extidentifier)
         self.showedname = QLineEdit()
-        self.tab1.layout.addRow("Displayed Name", self.showedname)
+        formbox.addRow("Displayed Name", self.showedname)
         self.platform = QLabel()
         self.platform.setText('Platform')
         self.platf = QComboBox()
-        self.tab1.layout.addRow(self.platform, self.platf)
+        formbox.addRow(self.platform, self.platf)
         self.platf.addItem('all')
         self.platf.addItem('linux_x86')
         self.platf.addItem('linux_x86_64')
@@ -156,7 +155,7 @@ class MyTabWidget(QWidget):
         self.liboversion = QLabel()
         self.liboversion.setText('Minimal LibreOffice version')
         self.libv = QComboBox()
-        self.tab1.layout.addRow(self.liboversion, self.libv)
+        formbox.addRow(self.liboversion, self.libv)
         self.libv.addItem('4.2')
         self.libv.addItem('4.3')
         self.libv.addItem('4.4')
@@ -178,7 +177,7 @@ class MyTabWidget(QWidget):
         self.descrbutton = QPushButton()
         self.descrbutton.setText('Choose File')
         self.descrbutton.setGeometry(QRect(200, 150, 93, 28))
-        self.tab1.layout.addRow(self.descr, self.descrbutton)
+        formbox.addRow(self.descr, self.descrbutton)
         self.descrbutton.clicked.connect(self.copy_description_file)
         self.exticon = QLabel()
         self.exticon.setText('Choose an Icon for your extension, '
@@ -186,9 +185,9 @@ class MyTabWidget(QWidget):
         self.exticonbutton = QPushButton()
         self.exticonbutton.setText('Choose an Icon')
         self.exticonbutton.setGeometry(QRect(200, 150, 93, 28))
-        self.tab1.layout.addRow(self.exticon, self.exticonbutton)
+        formbox.addRow(self.exticon, self.exticonbutton)
         self.exticonbutton.clicked.connect(self.copy_icon_file)
-        self.tab1.setLayout(self.tab1.layout)
+#        self.tab1.setLayout(self.tab1.layout)
 
         # Create second tab
         self.tab2.layout = QGridLayout(self)
