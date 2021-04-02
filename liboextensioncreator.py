@@ -12,8 +12,8 @@ import validators
 from PyQt5.QtCore import QRect
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QFormLayout,
-                             QGridLayout, QGroupBox, QLabel,
-                             QLineEdit, QMainWindow, QMessageBox, QPushButton,
+                             QGridLayout, QGroupBox, QLabel, QLineEdit,
+                             QMainWindow, QMessageBox, QPushButton,
                              QRadioButton, QSpinBox, QTabWidget, QVBoxLayout,
                              QWidget)
 
@@ -187,7 +187,6 @@ class MyTabWidget(QWidget):
         self.exticonbutton.setGeometry(QRect(200, 150, 93, 28))
         formbox.addRow(self.exticon, self.exticonbutton)
         self.exticonbutton.clicked.connect(self.copy_icon_file)
-#        self.tab1.setLayout(self.tab1.layout)
 
         # Create second tab
         self.tab2.layout = QGridLayout(self)
