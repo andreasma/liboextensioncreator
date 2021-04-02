@@ -35,12 +35,39 @@ class CreatorApp(QMainWindow):
         self.setWindowTitle(self.title) 
         self.setGeometry(self.left, self.top, self.width, self.height) 
   
-        self.tab_widget = MyTabWidget(self) 
-        self.setCentralWidget(self.tab_widget) 
+        self.group_widget = MyGroupWidget(self)
+        gridwindow = QGridLayout()
+        self.group_widget.setLayout(gridwindow)
+        self.setCentralWidget(self.group_widget)
   
         self.show()
 
 
+class MyGroupWidget(QWidget):
+    def __init__(self,parent):
+        super(QWidget, self).__init__(parent)
+        self.layout = QGridLayout(self)
+        self.topgroupbox = QGroupBox('LibreOffice Extension Creator')
+        topgridbox = QGridLayout()
+        self.topgroupbox.setLayout(topgridbox)
+        self.toplabel = QLabel('You can use this program to create a new non-code LibreOffice extension.')
+        topgridbox.addWidget(self.toplabel)
+        self.tab_widget = MyTabWidget(self)
+        self.bottomgroupbox = QGroupBox()
+        bottomgridbox = QGridLayout()
+        self.bottomgroupbox.setLayout(bottomgridbox)
+        self.button_label = QLabel()
+        self.button_label.setText('Once you are finished with the data fields, you could create the extension by clicking the OK button.')
+        bottomgridbox.addWidget(self.button_label, 0, 0)
+        QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        self.buttonBox = QDialogButtonBox(QBtn)
+        self.buttonBox.accepted.connect(self.tab_widget.accept)
+        self.buttonBox.rejected.connect(self.tab_widget.reject)
+        bottomgridbox.addWidget(self.buttonBox, 0, 1)
+        self.layout.addWidget(self.topgroupbox, 0, 0)
+
+        self.layout.addWidget(self.tab_widget, 1, 0)
+        self.layout.addWidget(self.bottomgroupbox, 2, 0)
 
         
         
@@ -149,14 +176,6 @@ class MyTabWidget(QWidget):
         self.exticonbutton.setGeometry(QRect(200,150,93,28))
         self.tab1.layout.addRow(self.exticon, self.exticonbutton)
         self.exticonbutton.clicked.connect(self.copy_icon_file)
-        self.button_label = QLabel()
-        self.button_label.setText('Once you are finished with the data fields, you could create the extension by clicking the OK button.')
-        self.tab1.layout.addRow(self.button_label)
-        QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
-        self.buttonBox = QDialogButtonBox(QBtn)
-        self.buttonBox.accepted.connect(self.accept)
-        self.buttonBox.rejected.connect(self.reject)
-        self.tab1.layout.addRow(self.button_label, self.buttonBox)
         self.tab1.setLayout(self.tab1.layout)
         
         
@@ -561,12 +580,12 @@ class MyTabWidget(QWidget):
                 palette_soc_file.writexml(f, "", "\t", "\n")
 
         
-        with ZipFile(extensionname + '.' + 'oxt', 'w') as liboextensionzip:
+        with ZipFile(os.path.join(cwd, extensionname + '.' + 'oxt'), 'w') as liboextensionzip:
             os.chdir(path)
             for root, dirs, files in os.walk('.'):
                 for name in files:
                     if not name == extensionname:
-                        liboextensionzip.write(os.path.join(root, name)) 
+                        liboextensionzip.write(os.path.join(root, name))
           
      
             
