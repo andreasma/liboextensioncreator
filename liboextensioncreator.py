@@ -518,7 +518,6 @@ class MyTabWidget(QWidget):
         if self.radiobuttonpalette.isChecked() == True:
             global palettename
             palettename = self.namepalette.text()
-            palettecolors = dict((item.text()).split(',') for item in self.items[:self.spinboxcolors.value()])
             palette_soc_file = minidom.Document()
             tag_color_table = palette_soc_file.createElement('ooo:color-table')
             tag_color_table.setAttribute('xmlns:office', 'urn:oasis:names:tc:opendocument:xmlns:office:1.0')
@@ -526,7 +525,15 @@ class MyTabWidget(QWidget):
             tag_color_table.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
             tag_color_table.setAttribute('xmlns:svg', 'http://www.w3.org/2000/svg')
             tag_color_table.setAttribute('xmlns:ooo', 'http://openoffice.org/2004/office')
-            
+            for item in self.items[:self.spinboxcolors.value()]:
+                colorkeyvalue = (item.text()).split(',')
+                colorname = colorkeyvalue[0].strip()
+                colorhexcode = '#' + colorkeyvalue[1].strip()
+                tag_draw_color = palette_soc_file.createElement('draw:color')
+                tag_draw_color.setAttribute('draw:name', colorname)
+                tag_draw_color.setAttribute('draw:color', colorhexcode)
+                tag_color_table.appendChild(tag_draw_color)
+
             palette_soc_file.appendChild(tag_color_table)
         
         
