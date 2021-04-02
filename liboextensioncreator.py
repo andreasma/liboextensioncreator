@@ -14,7 +14,8 @@ from PyQt5.QtWidgets import (QAction, QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QFormLayout,
                              QGridLayout, QGroupBox, QHBoxLayout, QLabel,
                              QLineEdit, QMainWindow, QMessageBox, QPushButton,
-                             QRadioButton, QTabWidget, QVBoxLayout, QWidget, QSpinBox)
+                             QRadioButton, QSpinBox, QTabWidget, QVBoxLayout,
+                             QWidget)
 
 cwd = os.getcwd()
 description_filename = ''
