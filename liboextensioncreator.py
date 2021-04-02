@@ -10,9 +10,9 @@ from zipfile import ZipFile
 
 import validators
 from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import (QAction, QApplication, QCheckBox, QComboBox,
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QFormLayout,
-                             QGridLayout, QGroupBox, QHBoxLayout, QLabel,
+                             QGridLayout, QGroupBox, QLabel,
                              QLineEdit, QMainWindow, QMessageBox, QPushButton,
                              QRadioButton, QSpinBox, QTabWidget, QVBoxLayout,
                              QWidget)
@@ -25,40 +25,43 @@ palettename = ''
 
 
 class CreatorApp(QMainWindow):
-    
-    def __init__(self): 
-        super().__init__() 
+
+    def __init__(self):
+        super().__init__()
         self.title = 'LibreOffice Extension Creator Dialog'
         self.left = 0
         self.top = 0
         self.width = 600
         self.height = 700
-        self.setWindowTitle(self.title) 
-        self.setGeometry(self.left, self.top, self.width, self.height) 
-  
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
         self.group_widget = MyGroupWidget(self)
         gridwindow = QGridLayout()
         self.group_widget.setLayout(gridwindow)
         self.setCentralWidget(self.group_widget)
-  
         self.show()
 
 
 class MyGroupWidget(QWidget):
-    def __init__(self,parent):
+    def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QGridLayout(self)
         self.topgroupbox = QGroupBox('LibreOffice Extension Creator')
         topgridbox = QGridLayout()
         self.topgroupbox.setLayout(topgridbox)
-        self.toplabel = QLabel('You can use this program to create a new non-code LibreOffice extension.')
+        self.toplabel = QLabel(
+            'You can use this program to create '
+            'a new non-code LibreOffice extension.')
         topgridbox.addWidget(self.toplabel)
         self.tab_widget = MyTabWidget(self)
         self.bottomgroupbox = QGroupBox()
         bottomgridbox = QGridLayout()
         self.bottomgroupbox.setLayout(bottomgridbox)
         self.button_label = QLabel()
-        self.button_label.setText('Once you are finished with the data fields, you could create the extension by clicking the OK button.')
+        self.button_label.setText(
+            'Once you are finished with the data '
+            'fields, you could create the extension by clicking the '
+            'OK button.')
         bottomgridbox.addWidget(self.button_label, 0, 0)
         QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         self.buttonBox = QDialogButtonBox(QBtn)
@@ -70,51 +73,57 @@ class MyGroupWidget(QWidget):
         self.layout.addWidget(self.tab_widget, 1, 0)
         self.layout.addWidget(self.bottomgroupbox, 2, 0)
 
-        
-        
-class MyTabWidget(QWidget): 
-    def __init__(self, parent): 
-        super(QWidget, self).__init__(parent) 
-        self.layout = QFormLayout(self) 
-  
-        # Initialize tab screen 
-        self.tabs = QTabWidget() 
-        self.tab1 = QWidget() 
-        self.tab2 = QWidget() 
+
+class MyTabWidget(QWidget):
+    def __init__(self, parent):
+        super(QWidget, self).__init__(parent)
+        self.layout = QFormLayout(self)
+
+        # Initialize tab screen
+        self.tabs = QTabWidget()
+        self.tab1 = QWidget()
+        self.tab2 = QWidget()
         self.tab3 = QWidget()
         self.tabs.resize(600, 800)
-        
         self.items = []
         self.item_count = 0
         self.lineEdit = QLineEdit
 
+        # Add tabs
+        self.tabs.addTab(self.tab1, "General")
+        self.tabs.addTab(self.tab2, "Registration / License")
+        self.tabs.addTab(self.tab3, "Extension Content")
 
-  
-        # Add tabs 
-        self.tabs.addTab(self.tab1, "General") 
-        self.tabs.addTab(self.tab2, "Registration / License") 
-        self.tabs.addTab(self.tab3, "Extension Content") 
-  
-        # Create first tab 
+        # Create first tab
         self.tab1.layout = QFormLayout(self)
         self.nameliboext = QLineEdit()
         self.nameliboext.setObjectName('Extension Name')
         self.nameliboext.setMaxLength(30)
-        self.nameliboext.editingFinished.connect(lambda: self.no_or_toshort_text1(self.nameliboext))
-        self.tab1.layout.addRow("Name of your LibreOffice Extension, between 8 and 30 character",self.nameliboext)
+        self.nameliboext.editingFinished.connect(
+            lambda: self.no_or_toshort_text1(self.nameliboext))
+        self.tab1.layout.addRow(
+            'Name of your LibreOffice Extension, between 8 and 30 character',
+            self.nameliboext)
         self.nameextauthor = QLineEdit()
         self.nameextauthor.setObjectName('Author Name')
-        self.nameextauthor.editingFinished.connect(lambda: self.textbox_empty(self.nameextauthor))
-        self.tab1.layout.addRow("Name of the extension author / publisher",self.nameextauthor)
+        self.nameextauthor.editingFinished.connect(
+            lambda: self.textbox_empty(self.nameextauthor))
+        self.tab1.layout.addRow("Name of the extension author / publisher",
+                                self.nameextauthor)
         self.authorwebsite = QLineEdit()
-        self.tab1.layout.addRow("URL of the author's / publisher's  website or blog", self.authorwebsite)      
+        self.tab1.layout.addRow("URL of the author's / publisher's  "
+                                'website or blog',
+                                self.authorwebsite)
         self.extversion = QLineEdit()
         self.extversion.setObjectName('Extension Version')
-        self.extversion.editingFinished.connect(lambda: self.textbox_empty(self.extversion))
-        self.tab1.layout.addRow("Version number of the extension (e.gl 0.1)", self.extversion)
+        self.extversion.editingFinished.connect(
+            lambda: self.textbox_empty(self.extversion))
+        self.tab1.layout.addRow("Version number of the extension (e.gl 0.1)",
+                                self.extversion)
         self.extidentifier = QLineEdit()
         self.extidentifier.setObjectName('Extension Identifier')
-        self.extidentifier.editingFinished.connect(lambda: self.textbox_empty(self.extidentifier))
+        self.extidentifier.editingFinished.connect(
+            lambda: self.textbox_empty(self.extidentifier))
         self.tab1.layout.addRow("Identifier", self.extidentifier)
         self.showedname = QLineEdit()
         self.tab1.layout.addRow("Displayed Name", self.showedname)
@@ -147,7 +156,7 @@ class MyTabWidget(QWidget):
         self.liboversion = QLabel()
         self.liboversion.setText('Minimal LibreOffice version')
         self.libv = QComboBox()
-        self.tab1.layout.addRow(self.liboversion,self.libv)
+        self.tab1.layout.addRow(self.liboversion, self.libv)
         self.libv.addItem('4.2')
         self.libv.addItem('4.3')
         self.libv.addItem('4.4')
@@ -164,23 +173,24 @@ class MyTabWidget(QWidget):
         self.libv.addItem('7.0')
         self.libv.addItem('7.1')
         self.descr = QLabel()
-        self.descr.setText('Description / Documentation of the Extension (*.txt) (English Language)')
+        self.descr.setText('Description / Documentation of the '
+                           'Extension (*.txt) (English Language)')
         self.descrbutton = QPushButton()
         self.descrbutton.setText('Choose File')
-        self.descrbutton.setGeometry(QRect(200, 150, 93, 28)) 
+        self.descrbutton.setGeometry(QRect(200, 150, 93, 28))
         self.tab1.layout.addRow(self.descr, self.descrbutton)
         self.descrbutton.clicked.connect(self.copy_description_file)
         self.exticon = QLabel()
-        self.exticon.setText('Choose an Icon for your extension, if you already created one.')
+        self.exticon.setText('Choose an Icon for your extension, '
+                             'if you already created one.')
         self.exticonbutton = QPushButton()
         self.exticonbutton.setText('Choose an Icon')
-        self.exticonbutton.setGeometry(QRect(200,150,93,28))
+        self.exticonbutton.setGeometry(QRect(200, 150, 93, 28))
         self.tab1.layout.addRow(self.exticon, self.exticonbutton)
         self.exticonbutton.clicked.connect(self.copy_icon_file)
         self.tab1.setLayout(self.tab1.layout)
-        
-        
-        # Create second tab 
+
+        # Create second tab
         self.tab2.layout = QGridLayout(self)
         self.acceptedby = QLabel()
         self.acceptedby.setText('Accepted by:')
@@ -199,39 +209,46 @@ class MyTabWidget(QWidget):
         self.tab2.layout.addWidget(self.eli, 1, 1)
         self.eli.addItem('GPL-2.0 (General Public License Version 2.0)')
         self.eli.addItem('GPL-3.0 (General Public License Version 3.0)')
-        self.eli.addItem('LGPL-3.0 (Lesser General Public License Version 3.0)')
-        self.eli.addItem('LGPL-2.1 (Lesser General Public License Version 2.1)')
-        self.eli.addItem('CC-BY-SA-4.0 (Creative Commons Attribution-ShareAlike 4.0 International License')
-
-        
+        self.eli.addItem('LGPL-3.0 (Lesser General Public '
+                         'License Version 3.0)')
+        self.eli.addItem('LGPL-2.1 (Lesser General Public '
+                         'License Version 2.1)')
+        self.eli.addItem('CC-BY-SA-4.0 (Creative Commons Attribution-'
+                         'ShareAlike 4.0 International License')
         self.soupdbox = QCheckBox('suppress-on-update')
         self.sifreqbox = QCheckBox('suppress-if-required')
         self.tab2.layout.addWidget(self.soupdbox, 2, 0)
         self.tab2.layout.addWidget(self.sifreqbox, 3, 0)
         self.tab2.setLayout(self.tab2.layout)
-        
-        
+
         # Create third tab
         self.tab3.layout = QFormLayout(self)
-        self.contentkindbox = QGroupBox('Which kind of content extension to build?')
+        self.contentkindbox = QGroupBox(
+            'Which kind of content extension to build?')
         gridbox0 = QGridLayout()
         self.radiobuttonautocorrect = QRadioButton('AutoCorrect Extension')
-        self.radiobuttonautocorrect.toggled.connect(lambda: self.autocorrectextcreation(self.radiobuttonautocorrect))
+        self.radiobuttonautocorrect.toggled.connect(
+            lambda: self.autocorrectextcreation(self.radiobuttonautocorrect))
         gridbox0.addWidget(self.radiobuttonautocorrect, 0, 0)
         self.radiobuttonautotext = QRadioButton('AutoText Extension')
-        self.radiobuttonautotext.toggled.connect(lambda: self.autotextextcreation(self.radiobuttonautotext))
+        self.radiobuttonautotext.toggled.connect(
+            lambda: self.autotextextcreation(self.radiobuttonautotext))
         gridbox0.addWidget(self.radiobuttonautotext, 0, 1)
         self.radiobuttongallery = QRadioButton('Gallery Extension')
-        self.radiobuttongallery.toggled.connect(lambda: self.galleryextcreation(self.radiobuttongallery))
+        self.radiobuttongallery.toggled.connect(
+            lambda: self.galleryextcreation(self.radiobuttongallery))
         gridbox0.addWidget(self.radiobuttongallery, 0, 2)
         self.radiobuttoniconset = QRadioButton('IconSet Extension')
-        self.radiobuttoniconset.toggled.connect(lambda: self.iconsetextcreation(self.radiobuttoniconset))
+        self.radiobuttoniconset.toggled.connect(
+            lambda: self.iconsetextcreation(self.radiobuttoniconset))
         gridbox0.addWidget(self.radiobuttoniconset, 1, 0)
         self.radiobuttonpalette = QRadioButton('Palette Extension')
-        self.radiobuttonpalette.toggled.connect(lambda: self.paletteextcreation(self.radiobuttonpalette))
+        self.radiobuttonpalette.toggled.connect(
+            lambda: self.paletteextcreation(self.radiobuttonpalette))
         gridbox0.addWidget(self.radiobuttonpalette, 1, 1)
         self.radiobuttontemplates = QRadioButton('Template Extension')
-        self.radiobuttontemplates.toggled.connect(lambda: self.templateextcreation(self.radiobuttontemplates))
+        self.radiobuttontemplates.toggled.connect(
+            lambda: self.templateextcreation(self.radiobuttontemplates))
         gridbox0.addWidget(self.radiobuttontemplates, 1, 2)
         self.contentkindbox.setLayout(gridbox0)
         self.autocorbox = QGroupBox('AutoCorrect Extension')
@@ -239,7 +256,8 @@ class MyTabWidget(QWidget):
         self.autocorbox.setLayout(gridbox1)
         self.autocorbox.setEnabled(False)
         self.autocorbox.hide()
-        self.label_dat_file = QLabel('Choose the *.dat file for your AutoCorrect Extension')
+        self.label_dat_file = QLabel(
+            'Choose the *.dat file for your AutoCorrect Extension')
         self.dat_file_button = QPushButton('Choose the *.dat file')
         self.dat_file_button.clicked.connect(self.copy_dat_file)
         gridbox1.addWidget(self.label_dat_file, 0, 0)
@@ -249,7 +267,8 @@ class MyTabWidget(QWidget):
         self.autotextbox.setLayout(gridbox2)
         self.autotextbox.setEnabled(False)
         self.autotextbox.hide()
-        self.label_bau_file = QLabel('Choose the *.bau file for your AutoText Extension')
+        self.label_bau_file = QLabel(
+            'Choose the *.bau file for your AutoText Extension')
         self.bau_file_button = QPushButton('Choose the *.bau file')
         self.bau_file_button.clicked.connect(self.copy_bau_file)
         gridbox2.addWidget(self.label_bau_file, 0, 0)
@@ -259,23 +278,26 @@ class MyTabWidget(QWidget):
         self.gallerybox.setLayout(gridbox3)
         self.gallerybox.hide()
         self.label_sdg_file = QLabel()
-        self.label_sdg_file.setText('Choose the *.sdg file for your Gallery Extension')
+        self.label_sdg_file.setText(
+            'Choose the *.sdg file for your Gallery Extension')
         self.sdg_file_button = QPushButton()
         self.sdg_file_button.setText('Choose the sdg file')
-        self.sdg_file_button.setGeometry(QRect(200, 150,20, 28))
+        self.sdg_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.sdg_file_button.clicked.connect(self.copy_sdg_file)
         self.label_sdv_file = QLabel()
-        self.label_sdv_file.setText('Choose the *.sdv file for your Gallery Extension')
+        self.label_sdv_file.setText(
+            'Choose the *.sdv file for your Gallery Extension')
         self.sdv_file_button = QPushButton()
         self.sdv_file_button.setText('Choose the sdv file')
-        self.sdv_file_button.setGeometry(QRect(200, 150,20, 28))
+        self.sdv_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.sdv_file_button.clicked.connect(self.copy_sdv_file)
         self.label_thm_file = QLabel()
-        self.label_thm_file.setText('Choose the *.thm file for your Gallery Extension')
+        self.label_thm_file.setText(
+            'Choose the *.thm file for your Gallery Extension')
         self.thm_file_button = QPushButton()
         self.thm_file_button.setText('Choose the thm file')
-        self.thm_file_button.setGeometry(QRect(200, 150,20, 28))
-        self.thm_file_button.clicked.connect(self.copy_thm_file)        
+        self.thm_file_button.setGeometry(QRect(200, 150, 20, 28))
+        self.thm_file_button.clicked.connect(self.copy_thm_file)
         gridbox3.addWidget(self.label_sdg_file, 0, 0)
         gridbox3.addWidget(self.sdg_file_button, 0, 1)
         gridbox3.addWidget(self.label_sdv_file, 1, 0)
@@ -284,7 +306,7 @@ class MyTabWidget(QWidget):
         gridbox3.addWidget(self.thm_file_button, 2, 1)
         self.gallerybox.setEnabled(False)
         self.iconbox = QGroupBox('IconSet Extension')
-        gridbox4 =QGridLayout()
+        gridbox4 = QGridLayout()
         self.iconbox.setLayout(gridbox4)
         self.iconbox.setEnabled(False)
         self.iconbox.hide()
@@ -306,27 +328,29 @@ class MyTabWidget(QWidget):
         self.colorsbox = QGroupBox('Colors')
         self.item_layout = QVBoxLayout(self.colorsbox)
         self.item_layout.addStretch(2)
-        self.label_colors = QLabel("Insert per box 'color name, hexadecimal number'")
-
-        self.numcolorsbutton = QPushButton("apply", clicked=self.on_clicked)
-        gridbox5a.addWidget(self.labelnumbercolor,0, 0, 1, 2)
-        gridbox5a.addWidget(self.spinboxcolors,  0, 2, 1, 1)
+        self.label_colors = QLabel(
+            "Insert per box 'color name, hexadecimal number'")
+        self.numcolorsbutton = QPushButton(
+            "apply", clicked=self.on_clicked)
+        gridbox5a.addWidget(self.labelnumbercolor, 0, 0, 1, 2)
+        gridbox5a.addWidget(self.spinboxcolors, 0, 2, 1, 1)
         gridbox5a.addWidget(self.numcolorsbutton, 1, 0, 1, 2)
         gridbox5a.addWidget(self.label_colors, 2, 0, 1, 3)
         gridbox5a.addWidget(self.colorsbox, 3, 0, 5, 3)
         gridbox5.addWidget(self.labelnamepalette, 0, 0)
         gridbox5.addWidget(self.namepalette, 0, 1)
         gridbox5.addWidget(self.numbercolorsbox, 1, 0)
-        
-        
         self.templatebox = QGroupBox('Template Extension')
         gridbox6 = QGridLayout()
         self.templatebox.setLayout(gridbox6)
         self.templatebox.setEnabled(False)
         self.templatebox.hide()
-        self.label_template_ziparchive = QLabel('Choose the *.zip archive for your Template Extension')
-        self.tempate_archive_button = QPushButton('Choose the *.zip archive')
-        self.tempate_archive_button.clicked.connect(self.copy_template_archive)
+        self.label_template_ziparchive = QLabel(
+            'Choose the *.zip archive for your Template Extension')
+        self.tempate_archive_button = QPushButton(
+            'Choose the *.zip archive')
+        self.tempate_archive_button.clicked.connect(
+            self.copy_template_archive)
         gridbox6.addWidget(self.label_template_ziparchive, 0, 0)
         gridbox6.addWidget(self.tempate_archive_button, 0, 1)
         self.tab3.layout.addWidget(self.contentkindbox)
@@ -336,15 +360,12 @@ class MyTabWidget(QWidget):
         self.tab3.layout.addWidget(self.iconbox)
         self.tab3.layout.addWidget(self.palettebox)
         self.tab3.layout.addWidget(self.templatebox)
-        
         self.tab3.setLayout(self.tab3.layout)
-        
- 
-  
-        # Add tabs to widget 
-        self.layout.addWidget(self.tabs) 
-        self.setLayout(self.layout) 
-        
+
+        # Add tabs to widget
+        self.layout.addWidget(self.tabs)
+        self.setLayout(self.layout)
+
     def accept(self):
         # create the extension
         global extensionname
@@ -364,28 +385,36 @@ class MyTabWidget(QWidget):
         extension_license = self.eli.currentText().lower().split(' (')[0]
         licensefilename = extension_license + '.' + 'txt'
         licenserellink = os.path.join('registration', licensefilename)
-        
-        
+
         # building manifest.xml
         manifestfile = minidom.Document()
-        manifest_manifest = manifestfile.createElement('manifest:manifest')
-        manifest_manifest.setAttribute('xmlns:manifest', 'http://openoffice.org/2001/manifest')
-        manifest_file_entry = manifestfile.createElement('manifest:file-entry')
-        manifest_file_entry.setAttribute('manifest:media-type', 'application/vnd.sun.star.configuration-data')
-        manifest_file_entry.setAttribute('manifest:full-path', 'paths.xcu')
+        manifest_manifest = manifestfile.createElement(
+            'manifest:manifest')
+        manifest_manifest.setAttribute(
+            'xmlns:manifest', 'http://openoffice.org/2001/manifest')
+        manifest_file_entry = manifestfile.createElement(
+            'manifest:file-entry')
+        manifest_file_entry.setAttribute(
+            'manifest:media-type',
+            'application/vnd.sun.star.configuration-data')
+        manifest_file_entry.setAttribute(
+            'manifest:full-path', 'paths.xcu')
         manifest_manifest.appendChild(manifest_file_entry)
         manifestfile.appendChild(manifest_manifest)
-        
+
         # building path.xcu
         path_xcu_file = minidom.Document()
         odc = path_xcu_file.createElement('oor:component-data')
         odc.setAttribute('oor:package', 'org.openoffice.Office')
         odc.setAttribute('oor:name', 'Paths')
-        odc.setAttribute('xmlns:install', 'http://openoffice.org/2004/installation')
-        odc.setAttribute('xmlns:oor', 'http://openoffice.org/2001/registry')
+        odc.setAttribute(
+            'xmlns:install', 'http://openoffice.org/2004/installation')
+        odc.setAttribute(
+            'xmlns:oor', 'http://openoffice.org/2001/registry')
         odc.setAttribute('xmlns:xs', 'http://www.w3.org/2001/XMLSchema')
-        odc.setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-        if self.radiobuttonautocorrect.isChecked() == True:
+        odc.setAttribute(
+            'xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+        if self.radiobuttonautocorrect.isChecked() is True:
             ng1 = path_xcu_file.createElement('node')
             ng1.setAttribute('oor-name', 'Paths')
             ng2 = path_xcu_file.createElement('node')
@@ -400,7 +429,7 @@ class MyTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
-        if self.radiobuttonautotext.isChecked() == True:
+        if self.radiobuttonautotext.isChecked() is True:
             ng1 = path_xcu_file.createElement('node')
             ng1.setAttribute('oor-name', 'Paths')
             ng2 = path_xcu_file.createElement('node')
@@ -415,7 +444,7 @@ class MyTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
-        if self.radiobuttongallery.isChecked() == True:
+        if self.radiobuttongallery.isChecked() is True:
             ng1 = path_xcu_file.createElement('node')
             ng1.setAttribute('oor-name', 'Paths')
             ng2 = path_xcu_file.createElement('node')
@@ -430,7 +459,7 @@ class MyTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
-        if self.radiobuttonpalette.isChecked() == True:
+        if self.radiobuttonpalette.isChecked() is True:
             ng1 = path_xcu_file.createElement('node')
             ng1.setAttribute('oor-name', 'Paths')
             ng2 = path_xcu_file.createElement('node')
@@ -445,7 +474,7 @@ class MyTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
-        if self.radiobuttontemplates.isChecked() == True:
+        if self.radiobuttontemplates.isChecked() is True:
             ng1 = path_xcu_file.createElement('node')
             ng1.setAttribute('oor-name', 'Paths')
             ng2 = path_xcu_file.createElement('node')
@@ -461,13 +490,14 @@ class MyTabWidget(QWidget):
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
         path_xcu_file.appendChild(odc)
-        
-                
+
         # building the description.xml file
         descriptionfile = minidom.Document()
         tag_description = descriptionfile.createElement('description')
-        tag_description.setAttribute('xmlns', 'http://openoffice.org/extensions/description/2006')
-        tag_description.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+        tag_description.setAttribute(
+            'xmlns', 'http://openoffice.org/extensions/description/2006')
+        tag_description.setAttribute(
+            'xmlns:xlink', 'http://www.w3.org/1999/xlink')
         tag_identifier = descriptionfile.createElement('identifier')
         tag_identifier.setAttribute('value', identifier)
         tag_version = descriptionfile.createElement('version')
@@ -480,7 +510,7 @@ class MyTabWidget(QWidget):
         tag_dp_name_data = descriptionfile.createTextNode(displayedname)
         tag_publisher = descriptionfile.createElement('publisher')
         tag_name = descriptionfile.createElement('name')
-        if website != None:
+        if website is not None:
             tag_name.setAttribute('xlink:href', website)
         tag_author = descriptionfile.createTextNode(author)
         if icon_filename != '':
@@ -490,23 +520,28 @@ class MyTabWidget(QWidget):
             tag_icon_default = descriptionfile.createElement('default')
             tag_icon_default.setAttribute('xlink:href', iconrellink)
         tag_dependencies = descriptionfile.createElement('dependencies')
-        tag_dependencies.setAttribute('xmlns:lo', 'http://libreoffice.org/extensions/description/2011')
-        tag_minimal_version = descriptionfile.createElement('lo:LibreOffice-minimal-version')
-        tag_minimal_version.setAttribute('name', 'LibreOffice ' + libreofficeversion)
+        tag_dependencies.setAttribute(
+            'xmlns:lo',
+            'http://libreoffice.org/extensions/description/2011')
+        tag_minimal_version = descriptionfile.createElement(
+            'lo:LibreOffice-minimal-version')
+        tag_minimal_version.setAttribute(
+            'name', 'LibreOffice ' + libreofficeversion)
         tag_minimal_version.setAttribute('value', libreofficeversion)
         if description_filename != '':
             name = ntpath.basename(description_filename)
             rellink = os.path.join('description', name)
-            tag_extension_description = descriptionfile.createElement('extension-description')
+            tag_extension_description = descriptionfile.createElement(
+                'extension-description')
             tag_src = descriptionfile.createElement('src')
             tag_src.setAttribute('xlink:href', rellink)
             tag_src.setAttribute('lang', 'en')
         tag_registration = descriptionfile.createElement('registration')
         tag_simple_license = descriptionfile.createElement('simple-license')
         tag_simple_license.setAttribute('accept-by', accepted_by)
-        if self.soupdbox.isChecked() == True:
+        if self.soupdbox.isChecked() is True:
             tag_simple_license.setAttribute('suppress-on-update', 'True')
-        if self.sifreqbox.isChecked() == True:
+        if self.sifreqbox.isChecked() is True:
             tag_simple_license.setAttribute('suppress-if-required', 'True')
         tag_license_text = descriptionfile.createElement('license-text')
         tag_license_text.setAttribute('lang', 'en')
@@ -532,19 +567,25 @@ class MyTabWidget(QWidget):
         tag_registration.appendChild(tag_simple_license)
         tag_description.appendChild(tag_registration)
         descriptionfile.appendChild(tag_description)
-        
-        
-        #building *soc file for palette extension
-        if self.radiobuttonpalette.isChecked() == True:
+
+        # building *soc file for palette extension
+        if self.radiobuttonpalette.isChecked() is True:
             global palettename
             palettename = self.namepalette.text()
             palette_soc_file = minidom.Document()
             tag_color_table = palette_soc_file.createElement('ooo:color-table')
-            tag_color_table.setAttribute('xmlns:office', 'urn:oasis:names:tc:opendocument:xmlns:office:1.0')
-            tag_color_table.setAttribute('xmlns:draw', 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0')
-            tag_color_table.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
-            tag_color_table.setAttribute('xmlns:svg', 'http://www.w3.org/2000/svg')
-            tag_color_table.setAttribute('xmlns:ooo', 'http://openoffice.org/2004/office')
+            tag_color_table.setAttribute(
+                'xmlns:office',
+                'urn:oasis:names:tc:opendocument:xmlns:office:1.0')
+            tag_color_table.setAttribute(
+                'xmlns:draw',
+                'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0')
+            tag_color_table.setAttribute(
+                'xmlns:xlink', 'http://www.w3.org/1999/xlink')
+            tag_color_table.setAttribute(
+                'xmlns:svg', 'http://www.w3.org/2000/svg')
+            tag_color_table.setAttribute(
+                'xmlns:ooo', 'http://openoffice.org/2004/office')
             for item in self.items[:self.spinboxcolors.value()]:
                 colorkeyvalue = (item.text()).split(',')
                 colorname = colorkeyvalue[0].strip()
@@ -555,71 +596,81 @@ class MyTabWidget(QWidget):
                 tag_color_table.appendChild(tag_draw_color)
 
             palette_soc_file.appendChild(tag_color_table)
-        
-        
-        os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'META-INF'), exist_ok=True)
-        os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'registration'), exist_ok=True)
+
+        os.makedirs(os.path.join(
+            cwd, 'working_directory', extensionname,
+            'META-INF'), exist_ok=True)
+        os.makedirs(os.path.join(
+            cwd, 'working_directory', extensionname,
+            'registration'), exist_ok=True)
         path = os.path.join(cwd, 'working_directory', extensionname)
         licenseinputpath = os.path.join(cwd, 'license_files', licensefilename)
-        licenseoutputpath = os.path.join(cwd, 'working_directory', extensionname, 'registration', licensefilename)
-              
+        licenseoutputpath = os.path.join(
+            cwd, 'working_directory', extensionname, 'registration',
+            licensefilename)
+
         shutil.copy(licenseinputpath, licenseoutputpath)
-        
+
         with open(os.path.join(path, 'description.xml'), 'w') as f:
             descriptionfile.writexml(f, "", "\t", "\n")
-            
+
         with open(os.path.join(path, 'META-INF', 'manifest.xml'), 'w') as f:
             manifestfile.writexml(f, "", "\t", "\n")
-            
+
         with open(os.path.join(path, 'path.xcu'), 'w') as f:
             path_xcu_file.writexml(f, "", "\t", "\n")
-            
-        if self.radiobuttonpalette.isChecked() == True:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'palette'), exist_ok=True)
+
+        if self.radiobuttonpalette.isChecked() is True:
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'palette'), exist_ok=True)
             palettfilename = (palettename + '.soc')
             with open(os.path.join(path, 'palette', palettfilename), 'w') as f:
                 palette_soc_file.writexml(f, "", "\t", "\n")
 
-        
-        with ZipFile(os.path.join(cwd, extensionname + '.' + 'oxt'), 'w') as liboextensionzip:
+        with ZipFile(
+            os.path.join(
+                cwd,
+                extensionname + '.' + 'oxt'), 'w') as liboextensionzip:
             os.chdir(path)
             for root, dirs, files in os.walk('.'):
                 for name in files:
                     if not name == extensionname:
                         liboextensionzip.write(os.path.join(root, name))
-          
-     
-            
+
     def reject(self):
         pass
-    
+
     def no_or_toshort_text1(self, widget):
         widgetname = widget.objectName()
-        if widget.text() == '':            
-            QMessageBox.critical(self, widgetname, "Empty value are not allowed.")
+        if widget.text() == '':
+            QMessageBox.critical(
+                self, widgetname, 'Empty value are not allowed.')
         elif len(widget.text()) < 8:
-            QMessageBox.critical(self, widgetname, "Your input is to short. You need to add more characters.")
+            QMessageBox.critical(
+                self, widgetname, 'Your input is to short. '
+                'You need to add more characters.')
         else:
             pass
-    
-    
+
     def textbox_empty(self, widget):
         widgetname = widget.objectName()
         if widget.text() == '':
-            QMessageBox.critical(self, widgetname, "Empty value are not allowed.")
+            QMessageBox.critical(
+                self, widgetname, "Empty value are not allowed.")
         else:
             pass
-        
+
     def autocorrectextcreation(self, b):
-        if b.isChecked() == True:
+        if b.isChecked() is True:
             self.autocorbox.setEnabled(True)
             self.autocorbox.show()
         else:
             self.autocorbox.setEnabled(False)
             self.autocorbox.hide()
-            
+
     def autotextextcreation(self, b):
-        if b.isChecked() == True:
+        if b.isChecked() is True:
             self.autotextbox.setEnabled(True)
             self.autotextbox.show()
         else:
@@ -627,35 +678,34 @@ class MyTabWidget(QWidget):
             self.autotextbox.hide()
 
     def galleryextcreation(self, b):
-        if b.isChecked() == True:
+        if b.isChecked() is True:
             self.gallerybox.setEnabled(True)
             self.gallerybox.show()
         else:
             self.gallerybox.setEnabled(False)
             self.gallerybox.hide()
-    
-                
+
     def iconsetextcreation(self, b):
-        if b.isChecked() == True:
+        if b.isChecked() is True:
             self.iconbox.setEnabled(True)
             self.iconbox.show()
         else:
             self.iconbox.setEnabled(False)
             self.iconbox.hide()
-            
+
     def paletteextcreation(self, b):
-        if b.isChecked() == True:
+        if b.isChecked() is True:
             self.palettebox.setEnabled(True)
             self.palettebox.show()
         else:
             self.palettebox.setEnabled(False)
             self.palettebox.hide()
-            
-    def on_clicked(self):
-        print( *[ item.text() for item in  self.items[:self.spinboxcolors.value()] ], sep="\n" )
 
-    
-    def set_item_count(self, new_count:int):
+    def on_clicked(self):
+        print(*[item.text() for item in
+                self.items[:self.spinboxcolors.value()]], sep="\n")
+
+    def set_item_count(self, new_count: int):
         n_items = len(self.items)
         for ii in range(n_items, new_count):
             item = self.lineEdit(self)
@@ -666,99 +716,124 @@ class MyTabWidget(QWidget):
         for ii in range(new_count, self.item_count):
             self.item_layout.itemAt(ii).widget().hide()
         self.item_count = new_count
-            
+
     def templateextcreation(self, b):
-        if b.isChecked() == True:
+        if b.isChecked() is True:
             self.templatebox.setEnabled(True)
             self.templatebox.show()
         else:
             self.templatebox.setEnabled(False)
             self.templatebox.hide()
 
-           
     def copy_description_file(self):
         global description_filename
         description_filename, _ = QFileDialog.getOpenFileName(
-            caption="Choose description / documenation file", filter="Plain text (*.txt)"
+            caption="Choose description / documenation file",
+            filter="Plain text (*.txt)"
             )
         if description_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'description'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'description')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'description'), exist_ok=True)
+            path = os.path.join(
+                cwd, 'working_directory', extensionname,
+                'description')
             shutil.copy(description_filename, path)
-        
-               
+
     def copy_icon_file(self):
         global icon_filename
         icon_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose an icon file for your extension', filter='Image (*.png)'
+            caption='Choose an icon file for your extension',
+            filter='Image (*.png)'
             )
         if icon_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'images'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'images')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'images'), exist_ok=True)
+            path = os.path.join(
+                cwd, 'working_directory', extensionname, 'images')
             shutil.copy(icon_filename, path)
-            
+
     def copy_dat_file(self):
         dat_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the dat file for your AutoCorrect extension', filter='Image (*.dat)'
+            caption='Choose the dat file for your AutoCorrect '
+            'extension', filter='Image (*.dat)'
             )
         if dat_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'autocorr'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'autocorr')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'autocorr'), exist_ok=True)
+            path = os.path.join(
+                cwd, 'working_directory', extensionname, 'autocorr')
             shutil.copy(dat_filename, path)
-            
+
     def copy_bau_file(self):
         bau_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the bau file for your AutoText extension', filter='Image (*.bau)'
+            caption='Choose the bau file for your AutoText '
+            'extension', filter='Image (*.bau)'
             )
         if bau_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'autotext'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'autotext')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'autotext'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory',
+                                extensionname, 'autotext')
             shutil.copy(bau_filename, path)
-            
-            
+
     def copy_sdg_file(self):
         sdg_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the sdg file for your Gallery extension', filter='Image (*.sdg)'
+            caption='Choose the sdg file for your Gallery '
+            'extension', filter='Image (*.sdg)'
             )
         if sdg_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'gallery'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory',
+                                extensionname, 'gallery')
             shutil.copy(sdg_filename, path)
-            
-            
-                
+
     def copy_sdv_file(self):
         sdv_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the sdv file for your Gallery extension', filter='Image (*.sdv)'
+            caption='Choose the sdv file for your Gallery extension',
+            filter='Image (*.sdv)'
             )
         if sdv_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'gallery'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory',
+                                extensionname, 'gallery')
             shutil.copy(sdv_filename, path)
 
-
-                
     def copy_thm_file(self):
         thm_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the thm file for your Gallery extension', filter='Image (*.thm)'
+            caption='Choose the thm file for your Gallery extension',
+            filter='Image (*.thm)'
             )
         if thm_filename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'gallery'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'gallery')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'gallery'), exist_ok=True)
+            path = os.path.join(cwd, 'working_directory',
+                                extensionname, 'gallery')
             shutil.copy(thm_filename, path)
-            
+
     def copy_template_archive(self):
         template_archivename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the zip archive for your Template extension', filter='Archive (*.zip)'
+            caption='Choose the zip archive for your Template '
+            'extension', filter='Archive (*.zip)'
             )
         if template_archivename:
-            os.makedirs(os.path.join(cwd, 'working_directory', extensionname, 'template'), exist_ok=True)
-            path = os.path.join(cwd, 'working_directory', extensionname, 'template')
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'template'), exist_ok=True)
+            path = os.path.join(
+                cwd, 'working_directory', extensionname, 'template')
             shutil.unpack_archive(template_archivename, path)
 
 
-  
-if __name__ == '__main__': 
-    app = QApplication(sys.argv) 
-    ex = CreatorApp() 
-    sys.exit(app.exec_()) 
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = CreatorApp()
+    sys.exit(app.exec_())
