@@ -5,5 +5,7 @@
 /lib64
 /__pycache__
 /working_directory
+/save
+/tabbed_dialog
 *.spec
 *.oxt
