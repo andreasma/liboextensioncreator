@@ -108,17 +108,17 @@ class MyTabWidget(QWidget):
         self.nameextauthor.editingFinished.connect(
             lambda: self.textbox_empty(self.nameextauthor))
         formbox.addRow("Name of the extension author / publisher",
-                                self.nameextauthor)
+                       self.nameextauthor)
         self.authorwebsite = QLineEdit()
         formbox.addRow("URL of the author's / publisher's  "
-                                'website or blog',
-                                self.authorwebsite)
+                       'website or blog',
+                       self.authorwebsite)
         self.extversion = QLineEdit()
         self.extversion.setObjectName('Extension Version')
         self.extversion.editingFinished.connect(
             lambda: self.textbox_empty(self.extversion))
         formbox.addRow("Version number of the extension (e.gl 0.1)",
-                                self.extversion)
+                       self.extversion)
         self.extidentifier = QLineEdit()
         self.extidentifier.setObjectName('Extension Identifier')
         self.extidentifier.editingFinished.connect(
