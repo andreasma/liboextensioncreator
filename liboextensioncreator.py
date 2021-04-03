@@ -636,7 +636,7 @@ class MyTabWidget(QWidget):
                         liboextensionzip.write(os.path.join(root, name))
 
     def reject(self):
-        pass
+        sys.exit()
 
     def no_or_toshort_text1(self, widget):
         widgetname = widget.objectName()
