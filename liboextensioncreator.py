@@ -189,13 +189,14 @@ class MyTabWidget(QWidget):
         self.exticonbutton.clicked.connect(self.copy_icon_file)
 
         # Create second tab
-        self.tab2.layout = QGridLayout(self)
+        gridlayout2 = QGridLayout()
+        self.tab2.setLayout(gridlayout2)
         self.acceptedby = QLabel()
         self.acceptedby.setText('Accepted by:')
         self.ack = QComboBox()
         self.ack.setFixedWidth(150)
-        self.tab2.layout.addWidget(self.acceptedby, 0, 0)
-        self.tab2.layout.addWidget(self.ack, 0, 1)
+        gridlayout2.addWidget(self.acceptedby, 0, 0)
+        gridlayout2.addWidget(self.ack, 0, 1)
         self.ack.addItem('admin')
         self.ack.addItem('user')
         self.extlicense = QLabel()
@@ -203,8 +204,8 @@ class MyTabWidget(QWidget):
         self.extlicense.setFixedWidth(300)
         self.eli = QComboBox()
         self.eli.setFixedWidth(300)
-        self.tab2.layout.addWidget(self.extlicense, 1, 0)
-        self.tab2.layout.addWidget(self.eli, 1, 1)
+        gridlayout2.addWidget(self.extlicense, 1, 0)
+        gridlayout2.addWidget(self.eli, 1, 1)
         self.eli.addItem('GPL-2.0 (General Public License Version 2.0)')
         self.eli.addItem('GPL-3.0 (General Public License Version 3.0)')
         self.eli.addItem('LGPL-3.0 (Lesser General Public '
@@ -215,9 +216,8 @@ class MyTabWidget(QWidget):
                          'ShareAlike 4.0 International License')
         self.soupdbox = QCheckBox('suppress-on-update')
         self.sifreqbox = QCheckBox('suppress-if-required')
-        self.tab2.layout.addWidget(self.soupdbox, 2, 0)
-        self.tab2.layout.addWidget(self.sifreqbox, 3, 0)
-        self.tab2.setLayout(self.tab2.layout)
+        gridlayout2.addWidget(self.soupdbox, 2, 0)
+        gridlayout2.addWidget(self.sifreqbox, 3, 0)
 
         # Create third tab
         self.tab3.layout = QFormLayout(self)
@@ -634,6 +634,8 @@ class MyTabWidget(QWidget):
                 for name in files:
                     if not name == extensionname:
                         liboextensionzip.write(os.path.join(root, name))
+                        
+        sys.exit()
 
     def reject(self):
         sys.exit()
