@@ -634,7 +634,7 @@ class MyTabWidget(QWidget):
                 for name in files:
                     if not name == extensionname:
                         liboextensionzip.write(os.path.join(root, name))
-                        
+
         sys.exit()
 
     def reject(self):
