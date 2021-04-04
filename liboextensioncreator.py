@@ -72,6 +72,7 @@ class MyGroupWidget(QWidget):
         bottomgridbox.addWidget(self.button_label, 0, 0)
         QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         self.buttonBox = QDialogButtonBox(QBtn)
+        self.buttonBox.setEnabled(False)
         self.buttonBox.accepted.connect(self.tab_widget.accept)
         self.buttonBox.rejected.connect(self.tab_widget.reject)
         bottomgridbox.addWidget(self.buttonBox, 0, 1)
@@ -663,6 +664,7 @@ class MyTabWidget(QWidget):
             global extensionname
             extensionname = self.nameliboext.text().replace(' ', '')
             widget.setReadOnly(True)
+            self.parent().buttonBox.setEnabled(True)
 
     def textbox_empty(self, widget):
         widgetname = widget.objectName()
