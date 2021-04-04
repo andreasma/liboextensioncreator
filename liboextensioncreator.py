@@ -374,8 +374,6 @@ class MyTabWidget(QWidget):
 
     def accept(self):
         # create the extension
-        global extensionname
-        extensionname = self.nameliboext.text().replace(' ', '')
         identifier = self.extidentifier.text().strip()
         author = self.nameextauthor.text().strip()
         extensionversion = self.extversion.text().strip()
@@ -659,7 +657,8 @@ class MyTabWidget(QWidget):
                 self, widgetname, 'Your input is to short. '
                 'You need to add more characters.')
         else:
-            pass
+            global extensionname
+            extensionname = self.nameliboext.text().replace(' ', '')
 
     def textbox_empty(self, widget):
         widgetname = widget.objectName()
