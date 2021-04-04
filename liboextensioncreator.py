@@ -15,7 +15,7 @@ from xml.dom import minidom
 from zipfile import ZipFile
 
 import validators
-from PyQt5.QtCore import QRect
+from PyQt5.QtCore import QRect, QTimer
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QFormLayout,
                              QGridLayout, QGroupBox, QLabel, QLineEdit,
@@ -107,6 +107,7 @@ class MyTabWidget(QWidget):
         self.nameliboext = QLineEdit()
         self.nameliboext.setObjectName('Extension Name')
         self.nameliboext.setMaxLength(30)
+        QTimer.singleShot(0, self.nameliboext.setFocus)
         self.nameliboext.editingFinished.connect(
             lambda: self.no_or_toshort_text1(self.nameliboext))
         formbox.addRow(
@@ -649,16 +650,19 @@ class MyTabWidget(QWidget):
 
     def no_or_toshort_text1(self, widget):
         widgetname = widget.objectName()
-        if widget.text() == '':
+        if not widget.text():
             QMessageBox.critical(
                 self, widgetname, 'Empty value are not allowed.')
+            widget.setFocus()
         elif len(widget.text()) < 8:
             QMessageBox.critical(
                 self, widgetname, 'Your input is to short. '
                 'You need to add more characters.')
+            widget.setFocus()
         else:
             global extensionname
             extensionname = self.nameliboext.text().replace(' ', '')
+            widget.setReadOnly(True)
 
     def textbox_empty(self, widget):
         widgetname = widget.objectName()
