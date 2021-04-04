@@ -220,7 +220,8 @@ class MyTabWidget(QWidget):
         gridlayout2.addWidget(self.sifreqbox, 3, 0)
 
         # Create third tab
-        self.tab3.layout = QFormLayout(self)
+        gridlayout3 = QGridLayout()
+        self.tab3.setLayout(gridlayout3)
         self.contentkindbox = QGroupBox(
             'Which kind of content extension to build?')
         gridbox0 = QGridLayout()
@@ -350,14 +351,13 @@ class MyTabWidget(QWidget):
             self.copy_template_archive)
         gridbox6.addWidget(self.label_template_ziparchive, 0, 0)
         gridbox6.addWidget(self.tempate_archive_button, 0, 1)
-        self.tab3.layout.addWidget(self.contentkindbox)
-        self.tab3.layout.addWidget(self.autocorbox)
-        self.tab3.layout.addWidget(self.autotextbox)
-        self.tab3.layout.addWidget(self.gallerybox)
-        self.tab3.layout.addWidget(self.iconbox)
-        self.tab3.layout.addWidget(self.palettebox)
-        self.tab3.layout.addWidget(self.templatebox)
-        self.tab3.setLayout(self.tab3.layout)
+        gridlayout3.addWidget(self.contentkindbox)
+        gridlayout3.addWidget(self.autocorbox)
+        gridlayout3.addWidget(self.autotextbox)
+        gridlayout3.addWidget(self.gallerybox)
+        gridlayout3.addWidget(self.iconbox)
+        gridlayout3.addWidget(self.palettebox)
+        gridlayout3.addWidget(self.templatebox)
 
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
