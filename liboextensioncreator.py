@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
+''' This program creates a UI, where a user could input the necessary
+    data to create a LibreOffice non-code extension. There are six
+    options for different sort of such extensions available on
+    tab 3 of the program.
+    '''
+
 import ntpath
 import os
 import shutil
@@ -25,6 +31,9 @@ palettename = ''
 
 
 class CreatorApp(QMainWindow):
+
+    ''' Initate the main window of the application.
+    '''
 
     def __init__(self):
         super().__init__()
