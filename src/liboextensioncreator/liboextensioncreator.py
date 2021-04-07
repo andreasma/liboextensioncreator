@@ -44,12 +44,19 @@ class CreatorApp(QMainWindow):
         self.height = 700
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        self.group_widget = MyGroupWidget(self)
+        self.group_widget = CreatorGroupWidget(self)
         self.setCentralWidget(self.group_widget)
         self.show()
 
 
-class MyGroupWidget(QWidget):
+class CreatorGroupWidget(QWidget):
+
+    '''
+    Create a group widget inside the main window. Add a top group box,
+    a tab widget in the middle and a bottom group box. The group widget
+    and the top and the bottom group box get a grid layout.
+    '''
+
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QGridLayout(self)
@@ -60,7 +67,7 @@ class MyGroupWidget(QWidget):
             'You can use this program to create '
             'a new non-code LibreOffice extension.')
         topgridbox.addWidget(self.toplabel)
-        self.tab_widget = MyTabWidget(self)
+        self.tab_widget = CreatorTabWidget(self)
         self.bottomgroupbox = QGroupBox()
         bottomgridbox = QGridLayout()
         self.bottomgroupbox.setLayout(bottomgridbox)
@@ -82,7 +89,7 @@ class MyGroupWidget(QWidget):
         self.layout.addWidget(self.bottomgroupbox, 2, 0)
 
 
-class MyTabWidget(QWidget):
+class CreatorTabWidget(QWidget):
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QFormLayout(self)
@@ -794,6 +801,12 @@ class MyTabWidget(QWidget):
             shutil.copy(bau_filename, path)
 
     def copy_sdg_file(self):
+
+        '''
+        Copy the sdg file of a Gallery
+        to the gallery subfolder.
+        '''
+
         sdg_filename, _ = QFileDialog.getOpenFileName(
             caption='Choose the sdg file for your Gallery '
             'extension', filter='Image (*.sdg)'
@@ -807,6 +820,12 @@ class MyTabWidget(QWidget):
             shutil.copy(sdg_filename, path)
 
     def copy_sdv_file(self):
+
+        '''
+        Copy the sdv file of a Gallery to the gallery
+        subfolder.
+        '''
+
         sdv_filename, _ = QFileDialog.getOpenFileName(
             caption='Choose the sdv file for your Gallery extension',
             filter='Image (*.sdv)'
@@ -820,6 +839,12 @@ class MyTabWidget(QWidget):
             shutil.copy(sdv_filename, path)
 
     def copy_thm_file(self):
+
+        '''
+        Copy the thm file of a Gallery to the gallery
+        subfolder.
+        '''
+
         thm_filename, _ = QFileDialog.getOpenFileName(
             caption='Choose the thm file for your Gallery extension',
             filter='Image (*.thm)'
@@ -833,6 +858,12 @@ class MyTabWidget(QWidget):
             shutil.copy(thm_filename, path)
 
     def copy_template_archive(self):
+
+        '''
+        Copy the archive of the templates and it's structure
+        to the template subfolder and unzip them.
+        '''
+
         template_archivename, _ = QFileDialog.getOpenFileName(
             caption='Choose the zip archive for your Template '
             'extension', filter='Archive (*.zip)'
