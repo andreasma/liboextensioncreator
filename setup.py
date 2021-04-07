@@ -26,6 +26,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.6",
     package_data={
-        "": ["*.txt"], "*.rst"
+        "": ["*.txt", "license_files/*.txt", "*.rst"],
+        
         }
 )
