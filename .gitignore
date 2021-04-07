@@ -9,3 +9,4 @@
 /tabbed_dialog
 *.spec
 *.oxt
+.pylintrc
