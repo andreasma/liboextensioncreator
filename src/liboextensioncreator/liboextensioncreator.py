@@ -110,44 +110,57 @@ class CreatorTabWidget(QWidget):
         self.tabs.addTab(self.tab3, "Extension Content")
 
         # Create first tab
-        formbox = QFormLayout()
-        self.tab1.setLayout(formbox)
+        gridlayout1 = QGridLayout()
+        self.tab1.setLayout(gridlayout1)
+        self.labelnameliboext = QLabel(
+            'Name of your LibreOffice Extension, between 8 '
+            'and 30 character')
         self.nameliboext = QLineEdit()
         self.nameliboext.setObjectName('Extension Name')
         self.nameliboext.setMaxLength(30)
         QTimer.singleShot(0, self.nameliboext.setFocus)
         self.nameliboext.editingFinished.connect(
             lambda: self.no_or_toshort_text1(self.nameliboext))
-        formbox.addRow(
-            'Name of your LibreOffice Extension, between 8 and 30 character',
-            self.nameliboext)
+        gridlayout1.addWidget(self.labelnameliboext, 0, 0)
+        gridlayout1.addWidget(self.nameliboext, 0, 1)
+        self.labelnameauthor = QLabel(
+            'Name of the extension author / publisher')
         self.nameextauthor = QLineEdit()
         self.nameextauthor.setObjectName('Author Name')
         self.nameextauthor.editingFinished.connect(
             lambda: self.textbox_empty(self.nameextauthor))
-        formbox.addRow("Name of the extension author / publisher",
-                       self.nameextauthor)
+        gridlayout1.addWidget(self.labelnameauthor, 1, 0)
+        gridlayout1.addWidget(self.nameextauthor, 1, 1)
+        self.labelauthorwebsite = QLabel(
+            "URL of the author's / publisher's  "
+            'website or blog')
         self.authorwebsite = QLineEdit()
-        formbox.addRow("URL of the author's / publisher's  "
-                       'website or blog',
-                       self.authorwebsite)
+        gridlayout1.addWidget(self.labelauthorwebsite, 2, 0)
+        gridlayout1.addWidget(self.authorwebsite, 2, 1)
+        self.labelextversion = QLabel(
+            'Version number of the extension (e.gl 0.1)')
         self.extversion = QLineEdit()
         self.extversion.setObjectName('Extension Version')
         self.extversion.editingFinished.connect(
             lambda: self.textbox_empty(self.extversion))
-        formbox.addRow("Version number of the extension (e.gl 0.1)",
-                       self.extversion)
+        gridlayout1.addWidget(self.labelextversion, 3, 0)
+        gridlayout1.addWidget(self.extversion, 3, 1)
+        self.labelextidentifier = QLabel('Identifier')
         self.extidentifier = QLineEdit()
         self.extidentifier.setObjectName('Extension Identifier')
         self.extidentifier.editingFinished.connect(
             lambda: self.textbox_empty(self.extidentifier))
-        formbox.addRow("Identifier", self.extidentifier)
+        gridlayout1.addWidget(self.labelextidentifier, 4, 0)
+        gridlayout1.addWidget(self.extidentifier, 4, 1)
+        self.labelshowedname = QLabel('Displayed Name')
         self.showedname = QLineEdit()
-        formbox.addRow("Displayed Name", self.showedname)
+        gridlayout1.addWidget(self.labelshowedname, 5, 0)
+        gridlayout1.addWidget(self.showedname, 5, 1)
         self.platform = QLabel()
         self.platform.setText('Platform')
         self.platf = QComboBox()
-        formbox.addRow(self.platform, self.platf)
+        gridlayout1.addWidget(self.platform, 6, 0)
+        gridlayout1.addWidget(self.platf, 6, 1)
         self.platf.addItem('all')
         self.platf.addItem('linux_x86')
         self.platf.addItem('linux_x86_64')
@@ -173,7 +186,8 @@ class CreatorTabWidget(QWidget):
         self.liboversion = QLabel()
         self.liboversion.setText('Minimal LibreOffice version')
         self.libv = QComboBox()
-        formbox.addRow(self.liboversion, self.libv)
+        gridlayout1.addWidget(self.liboversion, 7, 0)
+        gridlayout1.addWidget(self.libv, 7, 1)
         self.libv.addItem('4.2')
         self.libv.addItem('4.3')
         self.libv.addItem('4.4')
@@ -195,7 +209,8 @@ class CreatorTabWidget(QWidget):
         self.descrbutton = QPushButton()
         self.descrbutton.setText('Choose File')
         self.descrbutton.setGeometry(QRect(200, 150, 93, 28))
-        formbox.addRow(self.descr, self.descrbutton)
+        gridlayout1.addWidget(self.descr, 8, 0)
+        gridlayout1.addWidget(self.descrbutton, 8, 1)
         self.descrbutton.clicked.connect(self.copy_description_file)
         self.exticon = QLabel()
         self.exticon.setText('Choose an Icon for your extension, '
@@ -203,7 +218,8 @@ class CreatorTabWidget(QWidget):
         self.exticonbutton = QPushButton()
         self.exticonbutton.setText('Choose an Icon')
         self.exticonbutton.setGeometry(QRect(200, 150, 93, 28))
-        formbox.addRow(self.exticon, self.exticonbutton)
+        gridlayout1.addWidget(self.exticon, 9, 0)
+        gridlayout1.addWidget(self.exticonbutton, 9, 1)
         self.exticonbutton.clicked.connect(self.copy_icon_file)
 
         # Create second tab
