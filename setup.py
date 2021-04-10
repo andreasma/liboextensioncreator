@@ -3,8 +3,12 @@
 
 import setuptools
 
-with open("README.rst", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+long_description = '\n\n'.join([
+    open('README.rst').read(),
+    open('CONTRIBUTORS.rst').read(),
+    open('CHANGES.rst').read(),
+])
+
 
 setuptools.setup(
     name="liboextensioncreator",
