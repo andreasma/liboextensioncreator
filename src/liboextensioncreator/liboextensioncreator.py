@@ -625,6 +625,23 @@ class CreatorTabWidget(QWidget):
                 tag_color_table.appendChild(tag_draw_color)
 
             palette_soc_file.appendChild(tag_color_table)
+            
+        #buiding the config.xcu for iconset extensions
+        if self.radiobuttoniconset.isChecked() is True:
+            iconconfigfile = minidom.Document()
+            tag_ooritems = iconconfigfile.createElement('oor:items')
+            tag_ooritems.Attribute('xmlns:oor',
+                                 'http://openoffice.org/2001/registry')
+            tag_item = iconconfigfile.createElement('item')
+            tag_item.setAttribute(
+                'oor:path',
+                '/org.openoffice.Office.Paths/Paths/Iconset/InternalPath')
+            tag_node = iconconfigfile.createElement('node')
+            tag_node.setAttribute('oor:name', '%origin%/iconsets')
+            tag_node.setAttribute('oor:op', 'fuse')
+            tag_item.appendChild(tag_node)
+            tag_ooritems.appendChild(tag_item)
+            iconconfigfile.appendChild(tag_ooritems)
 
         os.makedirs(os.path.join(
             cwd, 'working_directory', extensionname,
