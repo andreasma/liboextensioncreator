@@ -417,17 +417,30 @@ class CreatorTabWidget(QWidget):
 
         # building manifest.xml
         manifestfile = minidom.Document()
-        manifest_manifest = manifestfile.createElement(
-            'manifest:manifest')
-        manifest_manifest.setAttribute(
-            'xmlns:manifest', 'http://openoffice.org/2001/manifest')
-        manifest_file_entry = manifestfile.createElement(
-            'manifest:file-entry')
-        manifest_file_entry.setAttribute(
-            'manifest:media-type',
-            'application/vnd.sun.star.configuration-data')
-        manifest_file_entry.setAttribute(
-            'manifest:full-path', 'paths.xcu')
+        if self.radiobuttoniconset.isChecked() is True:
+            manifest_manifest = manifestfile.createElement(
+                'm:manifest')
+            manifest_manifest.setAttribute(
+                'xmlns:manifest', 'http://openoffice.org/2001/manifest')
+            manifest_file_entry = manifestfile.createElement(
+                'm:file-entry')
+            manifest_file_entry.setAttribute(
+                'm:media-type',
+                'application/vnd.sun.star.configuration-data')
+            manifest_file_entry.setAttribute(
+                'm:full-path', 'config.xcu')
+        else:
+            manifest_manifest = manifestfile.createElement(
+                'manifest:manifest')
+            manifest_manifest.setAttribute(
+                'xmlns:manifest', 'http://openoffice.org/2001/manifest')
+            manifest_file_entry = manifestfile.createElement(
+                'manifest:file-entry')
+            manifest_file_entry.setAttribute(
+                'manifest:media-type',
+                'application/vnd.sun.star.configuration-data')
+            manifest_file_entry.setAttribute(
+                'manifest:full-path', 'paths.xcu')
         manifest_manifest.appendChild(manifest_file_entry)
         manifestfile.appendChild(manifest_manifest)
 
@@ -518,6 +531,7 @@ class CreatorTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
+            
         path_xcu_file.appendChild(odc)
 
         # building the description.xml file
@@ -630,7 +644,7 @@ class CreatorTabWidget(QWidget):
         if self.radiobuttoniconset.isChecked() is True:
             iconconfigfile = minidom.Document()
             tag_ooritems = iconconfigfile.createElement('oor:items')
-            tag_ooritems.Attribute('xmlns:oor',
+            tag_ooritems.setAttribute('xmlns:oor',
                                  'http://openoffice.org/2001/registry')
             tag_item = iconconfigfile.createElement('item')
             tag_item.setAttribute(
@@ -673,6 +687,11 @@ class CreatorTabWidget(QWidget):
             palettfilename = (palettename + '.soc')
             with open(os.path.join(path, 'palette', palettfilename), 'w') as f:
                 palette_soc_file.writexml(f, "", "\t", "\n")
+                
+        if self.radiobuttoniconset.isChecked() is True:
+            with open(os.path.join(path, 'config.xcu'), 'w') as f:
+                iconconfigfile.writexml(f, "", "\t", "\n")
+                
 
         with ZipFile(
             os.path.join(
