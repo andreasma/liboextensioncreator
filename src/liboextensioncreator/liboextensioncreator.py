@@ -531,7 +531,6 @@ class CreatorTabWidget(QWidget):
             ng2.appendChild(ng3)
             ng1.appendChild(ng2)
             odc.appendChild(ng1)
-            
         path_xcu_file.appendChild(odc)
 
         # building the description.xml file
@@ -663,6 +662,12 @@ class CreatorTabWidget(QWidget):
         os.makedirs(os.path.join(
             cwd, 'working_directory', extensionname,
             'registration'), exist_ok=True)
+
+        if self.radiobuttoniconset.isChecked() is True:
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'iconsets'), exist_ok=True)
+
         path = os.path.join(cwd, 'working_directory', extensionname)
         licenseinputpath = os.path.join(cwd, 'license_files', licensefilename)
         licenseoutputpath = os.path.join(
@@ -677,8 +682,9 @@ class CreatorTabWidget(QWidget):
         with open(os.path.join(path, 'META-INF', 'manifest.xml'), 'w') as f:
             manifestfile.writexml(f, "", "\t", "\n")
 
-        with open(os.path.join(path, 'path.xcu'), 'w') as f:
-            path_xcu_file.writexml(f, "", "\t", "\n")
+        if self.radiobuttoniconset.isChecked() is False:
+            with open(os.path.join(path, 'path.xcu'), 'w') as f:
+                path_xcu_file.writexml(f, "", "\t", "\n")
 
         if self.radiobuttonpalette.isChecked() is True:
             os.makedirs(os.path.join(
