@@ -646,13 +646,14 @@ class CreatorTabWidget(QWidget):
                 tag_color_table.appendChild(tag_draw_color)
 
             palette_soc_file.appendChild(tag_color_table)
-            
-        #buiding the config.xcu for iconset extensions
+
+        # buiding the config.xcu for iconset extensions
         if self.radiobuttoniconset.isChecked() is True:
             iconconfigfile = minidom.Document()
             tag_ooritems = iconconfigfile.createElement('oor:items')
-            tag_ooritems.setAttribute('xmlns:oor',
-                                 'http://openoffice.org/2001/registry')
+            tag_ooritems.setAttribute(
+                'xmlns:oor',
+                'http://openoffice.org/2001/registry')
             tag_item = iconconfigfile.createElement('item')
             tag_item.setAttribute(
                 'oor:path',
@@ -701,11 +702,10 @@ class CreatorTabWidget(QWidget):
             palettfilename = (palettename + '.soc')
             with open(os.path.join(path, 'palette', palettfilename), 'w') as f:
                 palette_soc_file.writexml(f, "", "\t", "\n")
-                
+
         if self.radiobuttoniconset.isChecked() is True:
             with open(os.path.join(path, 'config.xcu'), 'w') as f:
                 iconconfigfile.writexml(f, "", "\t", "\n")
-                
 
         with ZipFile(
             os.path.join(
@@ -941,11 +941,11 @@ class CreatorTabWidget(QWidget):
             path = os.path.join(
                 cwd, 'working_directory', extensionname, 'template')
             shutil.unpack_archive(template_archivename, path)
-            
+
     def copy_iconset_archive(self):
-        
+
         '''
-        Copy the archive of the iconset to the subfolder 
+        Copy the archive of the iconset to the subfolder
         for the iconset.
         '''
         iconset_file_name = QFileDialog.getOpenFileName(
@@ -961,6 +961,7 @@ class CreatorTabWidget(QWidget):
                 cwd, 'working_directory', extensionname,
                 'iconsets')
             shutil.copy(iconset_file_name[0], path)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
