@@ -343,6 +343,14 @@ class CreatorTabWidget(QWidget):
         self.iconbox.setLayout(gridbox4)
         self.iconbox.setEnabled(False)
         self.iconbox.hide()
+        self.label_iconset_ziparchive = QLabel(
+            'Choose the *.zip archive for your IconSet Extension')
+        self.iconset_archive_button = QPushButton(
+            'Choose the *.zip archive')
+        self.iconset_archive_button.clicked.connect(
+            self.copy_iconset_archive)
+        gridbox4.addWidget(self.label_iconset_ziparchive, 0, 0)
+        gridbox4.addWidget(self.iconset_archive_button, 0, 1)
         self.palettebox = QGroupBox('Palette Extension')
         gridbox5 = QGridLayout()
         self.palettebox.setLayout(gridbox5)
@@ -933,7 +941,26 @@ class CreatorTabWidget(QWidget):
             path = os.path.join(
                 cwd, 'working_directory', extensionname, 'template')
             shutil.unpack_archive(template_archivename, path)
-
+            
+    def copy_iconset_archive(self):
+        
+        '''
+        Copy the archive of the iconset to the subfolder 
+        for the iconset.
+        '''
+        iconset_file_name = QFileDialog.getOpenFileName(
+            caption='Choose the iconset zip file for your '
+                    'IconSet extension',
+            filter='Archive (*.zip)'
+            )
+        if iconset_file_name:
+            os.makedirs(os.path.join(
+                cwd, 'working_directory', extensionname,
+                'iconsets'), exist_ok=True)
+            path = os.path.join(
+                cwd, 'working_directory', extensionname,
+                'iconsets')
+            shutil.copy(iconset_file_name[0], path)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
