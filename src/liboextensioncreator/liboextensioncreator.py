@@ -678,7 +678,8 @@ class CreatorTabWidget(QWidget):
                 'iconsets'), exist_ok=True)
 
         path = os.path.join(cwd, 'working_directory', extensionname)
-        licenseinputpath = os.path.join(cwd, 'license_files', licensefilename)
+        dir_license_templates = os.path.dirname(__file__)
+        licenseinputpath = os.path.join(dir_license_templates, 'license_files', licensefilename)
         licenseoutputpath = os.path.join(
             cwd, 'working_directory', extensionname, 'registration',
             licensefilename)
