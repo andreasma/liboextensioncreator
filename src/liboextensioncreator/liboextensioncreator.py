@@ -73,6 +73,7 @@ class CreatorGroupWidget(QWidget):
         self.bottomgroupbox = QGroupBox()
         bottomgridbox = QGridLayout()
         self.bottomgroupbox.setLayout(bottomgridbox)
+        self.bottomgroupbox.setObjectName('bottomgroupbox')
         self.button_label = QLabel()
         self.button_label.setText(
             'Once you are finished with the data '
@@ -257,6 +258,7 @@ class CreatorTabWidget(QWidget):
         suppressgroupbox = QGridLayout()
         self.groupboxsuppress = QGroupBox()
         self.groupboxsuppress.setLayout(suppressgroupbox)
+        self.groupboxsuppress.setObjectName('suppressgroupbox')
         self.soupdbox = QCheckBox('suppress-on-update')
         self.sifreqbox = QCheckBox('suppress-if-required')
         suppressgroupbox.addWidget(self.soupdbox, 0, 0)
