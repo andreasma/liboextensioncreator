@@ -1,7 +1,14 @@
 Changelog
 =========
 
-0.0.4 (unreleased)
+0.0.5 (unreleaed)
+-----------------
+
+- Nothing changed yet.
+
+
+
+0.0.4 (2021-04-25)
 ------------------
 
 - Add the functions to create an inconset extension, writing a

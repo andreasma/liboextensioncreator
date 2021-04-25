@@ -12,7 +12,7 @@ long_description = '\n\n'.join([
 
 setuptools.setup(
     name="liboextensioncreator",
-    version="0.0.4",
+    version="0.0.5",
     author="Andreas Mantke",
     author_email="maand@gmx.de",
     description="A package to create LibreOffice non-code extensions",
