@@ -1,7 +1,7 @@
 QWidget {
     border: 1px solid black;
-    border-radius: 10px;
-    background-color: rgb(204, 244, 198);
+    border-radius: 4px;
+    background-color: #CCF4C6;
 }
 
 QLabel {
@@ -26,4 +26,38 @@ QLabel#toplabel {
 
 QTabWidget {
     border: none;
+}
+
+QTabBar::tab {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+    border: 2px solid #C4C4C3;
+    border-bottom-color: #C2C7CB;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 10px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    background: #92E285;
+}
+
+#bottomgroupbox QDialogButtonBox *[text="OK"]:enabled {
+    background-color: #18A303;
+    color: white;
+}
+
+
+#bottomgroupbox QPushButton:disabled {
+    background-color:#e2e4e5;
+}
+
+#bottomgroupbox QDialogButtonBox *[text="Cancel"]:enabled {
+    background-color: red;
+}
+
+#suppressgroupbox QCheckBox {
+    padding-left: 8px;
 }
