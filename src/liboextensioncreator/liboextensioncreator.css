@@ -1,0 +1,29 @@
+QWidget {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgb(204, 244, 198);
+}
+
+QLabel {
+    border: none;
+}
+
+QLineEdit {
+    background-color: rgb(238, 239, 241);
+}
+
+QGroupBox#topgroupbox {
+    margin-top: 10px;
+    font-size: 40px;
+    border: none;
+}
+
+QLabel#toplabel {
+    margin-top: 40px;
+    font-size: 20px;
+    border: none;
+}
+
+QTabWidget {
+    border: none;
+}
