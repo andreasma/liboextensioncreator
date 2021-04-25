@@ -4,7 +4,13 @@ Changelog
 0.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add the functions to create an inconset extension, writing a
+  config.xcu, copy the files and don't add a path.xcu to this
+  sort of extension [Andreas Mantke]
+- Make the path to the license templates relative to the
+  liboextensioncreator file [Andreas Mantke]
+- Improve the layout of tab2 with groupboxes [Andreas Mantke]
+- Flake8 fixes [Andreas Mantke]
 
 
 
