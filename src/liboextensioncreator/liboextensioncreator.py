@@ -63,10 +63,12 @@ class CreatorGroupWidget(QWidget):
         self.topgroupbox = QGroupBox('LibreOffice Extension Creator')
         topgridbox = QGridLayout()
         self.topgroupbox.setLayout(topgridbox)
+        self.topgroupbox.setObjectName('topgroupbox')
         self.toplabel = QLabel(
             'You can use this program to create '
             'a new non-code LibreOffice extension.')
-        topgridbox.addWidget(self.toplabel)
+        self.toplabel.setObjectName('toplabel')
+        topgridbox.addWidget(self.toplabel, 1, 0)
         self.tab_widget = CreatorTabWidget(self)
         self.bottomgroupbox = QGroupBox()
         bottomgridbox = QGridLayout()
@@ -92,7 +94,7 @@ class CreatorGroupWidget(QWidget):
 class CreatorTabWidget(QWidget):
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
-        self.layout = QFormLayout(self)
+        self.layout = QGridLayout(self)
 
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -112,6 +114,7 @@ class CreatorTabWidget(QWidget):
         # Create first tab
         gridlayout1 = QGridLayout()
         self.tab1.setLayout(gridlayout1)
+        self.tab1.setObjectName('tab1')
         self.labelnameliboext = QLabel(
             'Name of your LibreOffice Extension, between 8 '
             'and 30 character')
@@ -974,5 +977,7 @@ class CreatorTabWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    app.setStyleSheet(open(os.path.join(os.path.dirname(__file__), 'liboextensioncreator.css')).read())
+
     ex = CreatorApp()
     sys.exit(app.exec_())
