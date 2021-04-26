@@ -229,6 +229,7 @@ class CreatorTabWidget(QWidget):
         # Create second tab
         gridlayout2 = QGridLayout()
         self.tab2.setLayout(gridlayout2)
+        self.tab2.setObjectName('tab2')
         licensegroupbox = QGridLayout()
         self.groupboxlicense = QGroupBox()
         self.groupboxlicense.setLayout(licensegroupbox)
@@ -269,6 +270,7 @@ class CreatorTabWidget(QWidget):
         # Create third tab
         gridlayout3 = QGridLayout()
         self.tab3.setLayout(gridlayout3)
+        self.tab3.setObjectName('tab3')
         self.contentkindbox = QGroupBox(
             'Which kind of content extension to build?')
         gridbox0 = QGridLayout()
