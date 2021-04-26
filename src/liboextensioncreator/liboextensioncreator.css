@@ -44,13 +44,21 @@ QTabWidget {
     border: none;
 }
 
-QWidget#tab1 {
+QWidget#tab1, QWidget#tab2, QWidget#tab3 {
     background-color: #E1E1E1;
     border: none;
 }
 
-#tab1 QLabel {
+#tab1 QLabel, #tab2 QLabel {
     background-color: #E1E1E1;
+}
+
+#tab2 QGroupBox {
+    background-color: #E1E1E1;
+}
+
+#tab2 QCheckBox {
+    background-color: #F09E6F;
 }
 
 QTabBar::tab {
