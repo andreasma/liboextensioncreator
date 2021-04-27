@@ -53,12 +53,23 @@ QWidget#tab1, QWidget#tab2, QWidget#tab3 {
     background-color: #E1E1E1;
 }
 
-#tab2 QGroupBox {
+#tab2 QGroupBox, #tab3 QGroupBox {
     background-color: #E1E1E1;
 }
 
 #tab2 QCheckBox {
-    background-color: #F09E6F;
+    background-color: #E1E1E1;
+    border: none;
+    margin-left: 50px;
+}
+
+#tab3 QGroupBox {
+    border: none;
+}
+
+#tab3 QRadioButton {
+    background-color: #F9CFB5;
+    padding-left: 10px;
 }
 
 QTabBar::tab {
