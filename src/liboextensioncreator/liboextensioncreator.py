@@ -17,11 +17,10 @@ from zipfile import ZipFile
 import validators
 from PyQt5.QtCore import QRect, QTimer
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox,
-                             QDialogButtonBox, QFileDialog, QFormLayout,
-                             QGridLayout, QGroupBox, QLabel, QLineEdit,
-                             QMainWindow, QMessageBox, QPushButton,
-                             QRadioButton, QSpinBox, QTabWidget, QVBoxLayout,
-                             QWidget)
+                             QDialogButtonBox, QFileDialog, QGridLayout,
+                             QGroupBox, QLabel, QLineEdit, QMainWindow,
+                             QMessageBox, QPushButton, QRadioButton, QSpinBox,
+                             QTabWidget, QVBoxLayout, QWidget)
 
 cwd = os.getcwd()
 description_filename = ''
@@ -694,7 +693,8 @@ class CreatorTabWidget(QWidget):
 
         path = os.path.join(cwd, 'working_directory', extensionname)
         dir_license_templates = os.path.dirname(__file__)
-        licenseinputpath = os.path.join(dir_license_templates, 'license_files', licensefilename)
+        licenseinputpath = os.path.join(
+            dir_license_templates, 'license_files', licensefilename)
         licenseoutputpath = os.path.join(
             cwd, 'working_directory', extensionname, 'registration',
             licensefilename)
@@ -981,7 +981,8 @@ class CreatorTabWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setStyleSheet(open(os.path.join(os.path.dirname(__file__), 'liboextensioncreator.css')).read())
+    app.setStyleSheet(open(os.path.join(
+        os.path.dirname(__file__), 'liboextensioncreator.css')).read())
 
     ex = CreatorApp()
     sys.exit(app.exec_())
