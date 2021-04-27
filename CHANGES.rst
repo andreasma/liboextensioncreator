@@ -1,10 +1,14 @@
 Changelog
 =========
 
-0.0.5 (unreleaed)
------------------
+0.1.0 (unreleaed)
+----------------
 
-- Nothing changed yet.
+- Add names to the tab widgets, bottomgroupbox and suppressgroupbox 
+  for the adaption of styles [Andreas Mantke]
+- Add stylesheet and apply styles to all parts of the user interface 
+  of the application. [Andreas Mantke]
+- Flake8 and isort fixes [Andreas Mantke]
 
 
 
