@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.1.0 (unreleaed)
-----------------
+0.1.0 (2021-04-28)
+------------------
 
 - Add names to the tab widgets, bottomgroupbox and suppressgroupbox 
   for the adaption of styles [Andreas Mantke]
