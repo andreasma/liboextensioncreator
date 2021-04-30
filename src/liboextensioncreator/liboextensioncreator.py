@@ -15,7 +15,7 @@ from xml.dom import minidom
 from zipfile import ZipFile
 
 import validators
-from PyQt5.QtCore import QRect, QTimer, QTranslator
+from PyQt5.QtCore import QRect, QTimer, QTranslator, QLocale
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QGridLayout,
                              QGroupBox, QLabel, QLineEdit, QMainWindow,
@@ -341,21 +341,21 @@ class CreatorTabWidget(QWidget):
         self.label_sdg_file.setText(self.tr(
             'Choose the *.sdg file for your Gallery Extension'))
         self.sdg_file_button = QPushButton()
-        self.sdg_file_button.setText(self.tr('Choose the sdg file'))
+        self.sdg_file_button.setText(self.tr('Choose the *.sdg file'))
         self.sdg_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.sdg_file_button.clicked.connect(self.copy_sdg_file)
         self.label_sdv_file = QLabel()
         self.label_sdv_file.setText(self.tr(
             'Choose the *.sdv file for your Gallery Extension'))
         self.sdv_file_button = QPushButton()
-        self.sdv_file_button.setText(self.tr('Choose the sdv file'))
+        self.sdv_file_button.setText(self.tr('Choose the *.sdv file'))
         self.sdv_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.sdv_file_button.clicked.connect(self.copy_sdv_file)
         self.label_thm_file = QLabel()
         self.label_thm_file.setText(self.tr(
             'Choose the *.thm file for your Gallery Extension'))
         self.thm_file_button = QPushButton()
-        self.thm_file_button.setText(self.tr('Choose the thm file'))
+        self.thm_file_button.setText(self.tr('Choose the *.thm file'))
         self.thm_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.thm_file_button.clicked.connect(self.copy_thm_file)
         gridbox3.addWidget(self.label_sdg_file, 0, 0)
@@ -994,12 +994,13 @@ class CreatorTabWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    locale = QLocale.system().name()
     trans = QTranslator()
     trans.load(os.path.join(
-        os.path.dirname(__file__), 'de_DE.qm'))
+        os.path.dirname(__file__), 'locales', 'de_DE.qm'))
     app.installTranslator(trans)
     app.setStyleSheet(open(os.path.join(
-        os.path.dirname(__file__), 'liboextensioncreator.css')).read())
+        os.path.dirname(__file__), 'styles', 'liboextensioncreator.css')).read())
     
     ex = CreatorApp()
     sys.exit(app.exec_())
