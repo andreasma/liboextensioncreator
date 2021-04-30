@@ -1000,7 +1000,7 @@ if __name__ == '__main__':
         os.path.dirname(__file__), 'locales', 'de_DE.qm'))
     app.installTranslator(trans)
     app.setStyleSheet(open(os.path.join(
-        os.path.dirname(__file__), 'styles', 'liboextensioncreator.css')).read())
-    
+        os.path.dirname(__file__), 'styles',
+        'liboextensioncreator.css')).read())
     ex = CreatorApp()
     sys.exit(app.exec_())
