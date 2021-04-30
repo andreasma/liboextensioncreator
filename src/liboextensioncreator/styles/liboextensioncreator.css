@@ -1,0 +1,115 @@
+QWidget {
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: #CCF4C6;
+}
+
+QLabel {
+    border: none;
+}
+
+QLineEdit {
+    background-color: rgb(238, 239, 241);
+}
+
+QPushButton {
+    background-color: #F09E6F;
+}
+
+QComboBox {
+    background-color: #F09E6F;
+}
+
+QComboBox::item {
+    background-color: #E1E1E1;
+}
+
+QComboBox::item:selected, QComboBox::item:hover {
+    background-color: #F09E6F;
+}
+
+QGroupBox#topgroupbox {
+    margin-top: 10px;
+    font-size: 40px;
+    border: none;
+}
+
+QLabel#toplabel {
+    margin-top: 40px;
+    font-size: 20px;
+    border: none;
+}
+
+QTabWidget {
+    border: none;
+}
+
+QWidget#tab1, QWidget#tab2, QWidget#tab3 {
+    background-color: #E1E1E1;
+    border: none;
+}
+
+#tab1 QLabel, #tab2 QLabel {
+    background-color: #E1E1E1;
+}
+
+#tab2 QGroupBox, #tab3 QGroupBox {
+    background-color: #E1E1E1;
+}
+
+#tab2 QCheckBox {
+    background-color: #E1E1E1;
+    border: none;
+    margin-left: 50px;
+}
+
+#tab3 QGroupBox {
+    border: none;
+}
+
+#tab3 QRadioButton {
+    background-color: #F9CFB5;
+    padding-left: 10px;
+}
+
+QTabBar::tab {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+    border: 2px solid #C4C4C3;
+    border-bottom-color: #C2C7CB;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 10px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    background: #92E285;
+}
+
+#bottomgroupbox QDialogButtonBox *[text="OK"]:enabled {
+    background-color: #18A303;
+    color: white;
+}
+
+
+#bottomgroupbox QPushButton:disabled {
+    background-color:#e2e4e5;
+}
+
+#bottomgroupbox QDialogButtonBox *[text="Cancel"]:enabled {
+    background-color: red;
+}
+
+#bottomgroupbox {
+    background-color: #E1E1E1;
+}
+
+#bottomgroupbox QLabel {
+    background-color: #E1E1E1;
+}
+
+#suppressgroupbox QCheckBox {
+    padding-left: 8px;
+}
