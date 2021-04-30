@@ -15,7 +15,7 @@ from xml.dom import minidom
 from zipfile import ZipFile
 
 import validators
-from PyQt5.QtCore import QRect, QTimer, QTranslator, QLocale
+from PyQt5.QtCore import QLocale, QRect, QTimer, QTranslator
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox,
                              QDialogButtonBox, QFileDialog, QGridLayout,
                              QGroupBox, QLabel, QLineEdit, QMainWindow,
