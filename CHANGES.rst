@@ -1,10 +1,16 @@
 Changelog
 =========
 
-0.1.1 (unreleased)
+0.2.0 (2021-04-30)
 ------------------
 
-- Nothing changed yet:
+- Adapt the width of license label for localization. [Andreas Mantke]
+- Add translation tags to the strings for localization. [Andreas Mantke]
+- Create localization into German and include it into the 
+  application. [Andreas Mantke]
+- Move styles to an own subdirectory. [Andreas Mantke]
+- Text fixes on tab3. [Andreas Mantke]
+- Flake8 and isort fixes [Andreas Mantke]
 
 
 
