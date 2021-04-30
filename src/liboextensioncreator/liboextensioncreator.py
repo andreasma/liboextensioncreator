@@ -74,10 +74,10 @@ class CreatorGroupWidget(QWidget):
         self.bottomgroupbox.setLayout(bottomgridbox)
         self.bottomgroupbox.setObjectName('bottomgroupbox')
         self.button_label = QLabel()
-        self.button_label.setText(
+        self.button_label.setText(self.tr(
             'Once you are finished with the data '
             'fields, you could create the extension by clicking the '
-            'OK button.')
+            'OK button.'))
         bottomgridbox.addWidget(self.button_label, 0, 0)
         QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         self.buttonBox = QDialogButtonBox(QBtn)
@@ -115,9 +115,9 @@ class CreatorTabWidget(QWidget):
         gridlayout1 = QGridLayout()
         self.tab1.setLayout(gridlayout1)
         self.tab1.setObjectName('tab1')
-        self.labelnameliboext = QLabel(
+        self.labelnameliboext = QLabel(self.tr(
             'Name of your LibreOffice Extension, between 8 '
-            'and 30 character')
+            'and 30 character'))
         self.nameliboext = QLineEdit()
         self.nameliboext.setObjectName('Extension Name')
         self.nameliboext.setMaxLength(30)
@@ -236,7 +236,7 @@ class CreatorTabWidget(QWidget):
         self.groupboxlicense = QGroupBox()
         self.groupboxlicense.setLayout(licensegroupbox)
         self.acceptedby = QLabel()
-        self.acceptedby.setText('Accepted by:')
+        self.acceptedby.setText(self.tr('Accepted by:'))
         self.ack = QComboBox()
         self.ack.setFixedWidth(150)
         licensegroupbox.addWidget(self.acceptedby, 0, 0)
@@ -244,7 +244,8 @@ class CreatorTabWidget(QWidget):
         self.ack.addItem('admin')
         self.ack.addItem('user')
         self.extlicense = QLabel()
-        self.extlicense.setText('Choose a license for your extension:')
+        self.extlicense.setText(self.tr(
+            'Choose a license for your extension:'))
         self.extlicense.setFixedWidth(300)
         self.eli = QComboBox()
         self.eli.setFixedWidth(300)
@@ -273,79 +274,88 @@ class CreatorTabWidget(QWidget):
         gridlayout3 = QGridLayout()
         self.tab3.setLayout(gridlayout3)
         self.tab3.setObjectName('tab3')
-        self.contentkindbox = QGroupBox(
-            'Which kind of content extension to build?')
+        self.contentkindbox = QGroupBox(self.tr(
+            'Which kind of content extension to build?'))
         gridbox0 = QGridLayout()
-        self.radiobuttonautocorrect = QRadioButton('AutoCorrect Extension')
+        self.radiobuttonautocorrect = QRadioButton(self.tr(
+            'AutoCorrect Extension'))
         self.radiobuttonautocorrect.toggled.connect(
             lambda: self.autocorrectextcreation(self.radiobuttonautocorrect))
         gridbox0.addWidget(self.radiobuttonautocorrect, 0, 0)
-        self.radiobuttonautotext = QRadioButton('AutoText Extension')
+        self.radiobuttonautotext = QRadioButton(self.tr(
+            'AutoText Extension'))
         self.radiobuttonautotext.toggled.connect(
             lambda: self.autotextextcreation(self.radiobuttonautotext))
         gridbox0.addWidget(self.radiobuttonautotext, 0, 1)
-        self.radiobuttongallery = QRadioButton('Gallery Extension')
+        self.radiobuttongallery = QRadioButton(self.tr(
+            'Gallery Extension'))
         self.radiobuttongallery.toggled.connect(
             lambda: self.galleryextcreation(self.radiobuttongallery))
         gridbox0.addWidget(self.radiobuttongallery, 0, 2)
-        self.radiobuttoniconset = QRadioButton('IconSet Extension')
+        self.radiobuttoniconset = QRadioButton(self.tr(
+            'IconSet Extension'))
         self.radiobuttoniconset.toggled.connect(
             lambda: self.iconsetextcreation(self.radiobuttoniconset))
         gridbox0.addWidget(self.radiobuttoniconset, 1, 0)
-        self.radiobuttonpalette = QRadioButton('Palette Extension')
+        self.radiobuttonpalette = QRadioButton(self.tr(
+            'Palette Extension'))
         self.radiobuttonpalette.toggled.connect(
             lambda: self.paletteextcreation(self.radiobuttonpalette))
         gridbox0.addWidget(self.radiobuttonpalette, 1, 1)
-        self.radiobuttontemplates = QRadioButton('Template Extension')
+        self.radiobuttontemplates = QRadioButton(self.tr(
+            'Template Extension'))
         self.radiobuttontemplates.toggled.connect(
             lambda: self.templateextcreation(self.radiobuttontemplates))
         gridbox0.addWidget(self.radiobuttontemplates, 1, 2)
         self.contentkindbox.setLayout(gridbox0)
-        self.autocorbox = QGroupBox('AutoCorrect Extension')
+        self.autocorbox = QGroupBox(self.tr(
+            'AutoCorrect Extension'))
         gridbox1 = QGridLayout()
         self.autocorbox.setLayout(gridbox1)
         self.autocorbox.setEnabled(False)
         self.autocorbox.hide()
-        self.label_dat_file = QLabel(
-            'Choose the *.dat file for your AutoCorrect Extension')
-        self.dat_file_button = QPushButton('Choose the *.dat file')
+        self.label_dat_file = QLabel(self.tr(
+            'Choose the *.dat file for your AutoCorrect Extension'))
+        self.dat_file_button = QPushButton(self.tr(
+            'Choose the *.dat file'))
         self.dat_file_button.clicked.connect(self.copy_dat_file)
         gridbox1.addWidget(self.label_dat_file, 0, 0)
         gridbox1.addWidget(self.dat_file_button, 0, 1)
-        self.autotextbox = QGroupBox('AutoText Extension')
+        self.autotextbox = QGroupBox(self.tr('AutoText Extension'))
         gridbox2 = QGridLayout()
         self.autotextbox.setLayout(gridbox2)
         self.autotextbox.setEnabled(False)
         self.autotextbox.hide()
-        self.label_bau_file = QLabel(
-            'Choose the *.bau file for your AutoText Extension')
-        self.bau_file_button = QPushButton('Choose the *.bau file')
+        self.label_bau_file = QLabel(self.tr(
+            'Choose the *.bau file for your AutoText Extension'))
+        self.bau_file_button = QPushButton(self.tr(
+            'Choose the *.bau file'))
         self.bau_file_button.clicked.connect(self.copy_bau_file)
         gridbox2.addWidget(self.label_bau_file, 0, 0)
         gridbox2.addWidget(self.bau_file_button, 0, 1)
-        self.gallerybox = QGroupBox('Gallery Extension')
+        self.gallerybox = QGroupBox(self.tr('Gallery Extension'))
         gridbox3 = QGridLayout()
         self.gallerybox.setLayout(gridbox3)
         self.gallerybox.hide()
         self.label_sdg_file = QLabel()
-        self.label_sdg_file.setText(
-            'Choose the *.sdg file for your Gallery Extension')
+        self.label_sdg_file.setText(self.tr(
+            'Choose the *.sdg file for your Gallery Extension'))
         self.sdg_file_button = QPushButton()
-        self.sdg_file_button.setText('Choose the sdg file')
+        self.sdg_file_button.setText(self.tr('Choose the sdg file'))
         self.sdg_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.sdg_file_button.clicked.connect(self.copy_sdg_file)
         self.label_sdv_file = QLabel()
-        self.label_sdv_file.setText(
-            'Choose the *.sdv file for your Gallery Extension')
+        self.label_sdv_file.setText(self.tr(
+            'Choose the *.sdv file for your Gallery Extension'))
         self.sdv_file_button = QPushButton()
-        self.sdv_file_button.setText('Choose the sdv file')
+        self.sdv_file_button.setText(self.tr('Choose the sdv file'))
         self.sdv_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.sdv_file_button.clicked.connect(self.copy_sdv_file)
         self.label_thm_file = QLabel()
-        self.label_thm_file.setText(
-            'Choose the *.thm file for your Gallery Extension')
+        self.label_thm_file.setText(self.tr(
+            'Choose the *.thm file for your Gallery Extension'))
         self.thm_file_button = QPushButton()
-        self.thm_file_button.setText('Choose the thm file')
+        self.thm_file_button.setText(self.tr('Choose the thm file'))
         self.thm_file_button.setGeometry(QRect(200, 150, 20, 28))
         self.thm_file_button.clicked.connect(self.copy_thm_file)
         gridbox3.addWidget(self.label_sdg_file, 0, 0)
@@ -355,41 +365,41 @@ class CreatorTabWidget(QWidget):
         gridbox3.addWidget(self.label_thm_file, 2, 0)
         gridbox3.addWidget(self.thm_file_button, 2, 1)
         self.gallerybox.setEnabled(False)
-        self.iconbox = QGroupBox('IconSet Extension')
+        self.iconbox = QGroupBox(self.tr('IconSet Extension'))
         gridbox4 = QGridLayout()
         self.iconbox.setLayout(gridbox4)
         self.iconbox.setEnabled(False)
         self.iconbox.hide()
-        self.label_iconset_ziparchive = QLabel(
-            'Choose the *.zip archive for your IconSet Extension')
-        self.iconset_archive_button = QPushButton(
-            'Choose the *.zip archive')
+        self.label_iconset_ziparchive = QLabel(self.tr(
+            'Choose the *.zip archive for your IconSet Extension'))
+        self.iconset_archive_button = QPushButton(self.tr(
+            'Choose the *.zip archive'))
         self.iconset_archive_button.clicked.connect(
             self.copy_iconset_archive)
         gridbox4.addWidget(self.label_iconset_ziparchive, 0, 0)
         gridbox4.addWidget(self.iconset_archive_button, 0, 1)
-        self.palettebox = QGroupBox('Palette Extension')
+        self.palettebox = QGroupBox(self.tr('Palette Extension'))
         gridbox5 = QGridLayout()
         self.palettebox.setLayout(gridbox5)
         self.palettebox.setEnabled(False)
         self.palettebox.hide()
-        self.labelnamepalette = QLabel('Name of the Palette')
+        self.labelnamepalette = QLabel(self.tr('Name of the Palette'))
         self.namepalette = QLineEdit()
-        self.namepalette.setObjectName('Palette Name')
+        self.namepalette.setObjectName(self.tr('Palette Name'))
         self.numbercolorsbox = QGroupBox()
         gridbox5a = QGridLayout()
         self.numbercolorsbox.setLayout(gridbox5a)
-        self.labelnumbercolor = QLabel(
-            'Number of Colors for the Palette, up to 15.')
+        self.labelnumbercolor = QLabel(self.tr(
+            'Number of Colors for the Palette, up to 15.'))
         self.spinboxcolors = QSpinBox()
         self.spinboxcolors.setRange(0, 15)
         self.spinboxcolors.valueChanged.connect(self.set_item_count)
         self.colorsbox = QGroupBox('')
         self.item_layout = QVBoxLayout(self.colorsbox)
         self.item_layout.addStretch(2)
-        self.label_colors = QLabel(
+        self.label_colors = QLabel(self.tr(
             "Insert per box/line below 'color name, hexadecimal number' "
-            "without the hash '#'")
+            "without the hash '#'"))
         gridbox5a.addWidget(self.labelnumbercolor, 0, 0, 1, 2)
         gridbox5a.addWidget(self.spinboxcolors, 0, 2, 1, 1)
         gridbox5a.addWidget(self.label_colors, 3, 0, 1, 3)
@@ -397,15 +407,15 @@ class CreatorTabWidget(QWidget):
         gridbox5.addWidget(self.labelnamepalette, 0, 0)
         gridbox5.addWidget(self.namepalette, 0, 1)
         gridbox5.addWidget(self.numbercolorsbox, 1, 0)
-        self.templatebox = QGroupBox('Template Extension')
+        self.templatebox = QGroupBox(self.tr('Template Extension'))
         gridbox6 = QGridLayout()
         self.templatebox.setLayout(gridbox6)
         self.templatebox.setEnabled(False)
         self.templatebox.hide()
-        self.label_template_ziparchive = QLabel(
-            'Choose the *.zip archive for your Template Extension')
-        self.tempate_archive_button = QPushButton(
-            'Choose the *.zip archive')
+        self.label_template_ziparchive = QLabel(self.tr(
+            'Choose the *.zip archive for your Template Extension'))
+        self.tempate_archive_button = QPushButton(self.tr(
+            'Choose the *.zip archive'))
         self.tempate_archive_button.clicked.connect(
             self.copy_template_archive)
         gridbox6.addWidget(self.label_template_ziparchive, 0, 0)
@@ -984,8 +994,12 @@ class CreatorTabWidget(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    trans = QTranslator()
+    trans.load(os.path.join(
+        os.path.dirname(__file__), 'de_DE.qm'))
+    app.installTranslator(trans)
     app.setStyleSheet(open(os.path.join(
         os.path.dirname(__file__), 'liboextensioncreator.css')).read())
-
+    
     ex = CreatorApp()
     sys.exit(app.exec_())
