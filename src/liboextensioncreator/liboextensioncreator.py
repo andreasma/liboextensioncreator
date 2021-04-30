@@ -246,7 +246,7 @@ class CreatorTabWidget(QWidget):
         self.extlicense = QLabel()
         self.extlicense.setText(self.tr(
             'Choose a license for your extension:'))
-        self.extlicense.setFixedWidth(300)
+        self.extlicense.setFixedWidth(350)
         self.eli = QComboBox()
         self.eli.setFixedWidth(300)
         licensegroupbox.addWidget(self.extlicense, 2, 0)
