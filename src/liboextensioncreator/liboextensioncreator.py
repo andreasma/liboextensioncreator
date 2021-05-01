@@ -759,8 +759,9 @@ class CreatorTabWidget(QWidget):
             widget.setFocus()
         elif len(widget.text()) < 8:
             QMessageBox.critical(
-                self, widgetname, 'Your input is to short. '
-                'You need to add more characters.')
+                self, widgetname, self.tr(
+                    'Your input is to short. '
+                    'You need to add more characters.'))
             widget.setFocus()
         else:
             global extensionname
@@ -772,7 +773,8 @@ class CreatorTabWidget(QWidget):
         widgetname = widget.objectName()
         if widget.text() == '':
             QMessageBox.critical(
-                self, widgetname, "Empty value are not allowed.")
+                self, widgetname,
+                self.tr("Empty value are not allowed."))
         else:
             pass
 
@@ -843,7 +845,7 @@ class CreatorTabWidget(QWidget):
     def copy_description_file(self):
         global description_filename
         description_filename, _ = QFileDialog.getOpenFileName(
-            caption="Choose description / documenation file",
+            caption=self.tr("Choose description / documenation file"),
             filter="Plain text (*.txt)"
             )
         if description_filename:
@@ -858,7 +860,7 @@ class CreatorTabWidget(QWidget):
     def copy_icon_file(self):
         global icon_filename
         icon_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose an icon file for your extension',
+            caption=self.tr('Choose an icon file for your extension'),
             filter='Image (*.png)'
             )
         if icon_filename:
@@ -871,8 +873,10 @@ class CreatorTabWidget(QWidget):
 
     def copy_dat_file(self):
         dat_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the dat file for your AutoCorrect '
-            'extension', filter='Image (*.dat)'
+            caption=self.tr(
+                'Choose the dat file for your AutoCorrect '
+                'extension'),
+            filter='Image (*.dat)'
             )
         if dat_filename:
             os.makedirs(os.path.join(
@@ -884,8 +888,10 @@ class CreatorTabWidget(QWidget):
 
     def copy_bau_file(self):
         bau_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the bau file for your AutoText '
-            'extension', filter='Image (*.bau)'
+            caption=self.tr(
+                'Choose the bau file for your AutoText '
+                'extension'),
+            filter='Image (*.bau)'
             )
         if bau_filename:
             os.makedirs(os.path.join(
@@ -903,8 +909,10 @@ class CreatorTabWidget(QWidget):
         '''
 
         sdg_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the sdg file for your Gallery '
-            'extension', filter='Image (*.sdg)'
+            caption=self.tr(
+                'Choose the sdg file for your Gallery '
+                'extension'),
+            filter='Image (*.sdg)'
             )
         if sdg_filename:
             os.makedirs(os.path.join(
@@ -922,7 +930,8 @@ class CreatorTabWidget(QWidget):
         '''
 
         sdv_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the sdv file for your Gallery extension',
+            caption=self.tr(
+                'Choose the sdv file for your Gallery extension'),
             filter='Image (*.sdv)'
             )
         if sdv_filename:
@@ -941,7 +950,8 @@ class CreatorTabWidget(QWidget):
         '''
 
         thm_filename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the thm file for your Gallery extension',
+            caption=self.tr(
+                'Choose the thm file for your Gallery extension'),
             filter='Image (*.thm)'
             )
         if thm_filename:
@@ -960,8 +970,10 @@ class CreatorTabWidget(QWidget):
         '''
 
         template_archivename, _ = QFileDialog.getOpenFileName(
-            caption='Choose the zip archive for your Template '
-            'extension', filter='Archive (*.zip)'
+            caption=self.tr(
+                'Choose the zip archive for your Template '
+                'extension'),
+            filter='Archive (*.zip)'
             )
         if template_archivename:
             os.makedirs(os.path.join(
@@ -978,8 +990,9 @@ class CreatorTabWidget(QWidget):
         for the iconset.
         '''
         iconset_file_name = QFileDialog.getOpenFileName(
-            caption='Choose the iconset zip file for your '
-                    'IconSet extension',
+            caption=self.tr(
+                'Choose the iconset zip file for your '
+                'IconSet extension'),
             filter='Archive (*.zip)'
             )
         if iconset_file_name:
