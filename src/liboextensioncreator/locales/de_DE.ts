@@ -219,5 +219,60 @@
         <source>Choose the *.zip archive for your Template Extension</source>
         <translation>Wählen Sie das *zip Archiv für Ihre Vorlagen-Extension</translation>
     </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="761"/>
+        <source>Your input is to short. You need to add more characters.</source>
+        <translation>Ihre Eingabe ist zu kurz. Sie müssen weitere Zeichen eingeben.</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="775"/>
+        <source>Empty value are not allowed.</source>
+        <translation>Die Angabe eines Wertes ist erforderlich.</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="847"/>
+        <source>Choose description / documenation file</source>
+        <translation>Wähle die Beschreibungs-/Dokumentations-Datei</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="862"/>
+        <source>Choose an icon file for your extension</source>
+        <translation>Wählen Sie ein Symbol für Ihre Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="875"/>
+        <source>Choose the dat file for your AutoCorrect extension</source>
+        <translation>Wählen Sie die dat Datei für Ihre Autokorrektur-Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="890"/>
+        <source>Choose the bau file for your AutoText extension</source>
+        <translation>Wählen Sie die bau Datei für Ihre Autotext-Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="911"/>
+        <source>Choose the sdg file for your Gallery extension</source>
+        <translation>Wählen Sie die sdg Datei für Ihre Gallery-Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="932"/>
+        <source>Choose the sdv file for your Gallery extension</source>
+        <translation>Wählen Sie die sdv Datei für Ihre Gallery-Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="952"/>
+        <source>Choose the thm file for your Gallery extension</source>
+        <translation>Wählen Sie die thm Datei für Ihre Gallery-Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="972"/>
+        <source>Choose the zip archive for your Template extension</source>
+        <translation>Wählen Sie das Zip-Archiv für Ihre Vorlagen-Extension</translation>
+    </message>
+    <message>
+        <location filename="../liboextensioncreator.py" line="992"/>
+        <source>Choose the iconset zip file for your IconSet extension</source>
+        <translation>Wählen Sie die Iconset-Zip-Datei für Ihre Iconset-Extension</translation>
+    </message>
 </context>
 </TS>
