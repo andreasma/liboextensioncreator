@@ -1,12 +1,15 @@
 Changelog
 =========
 
-0.2.1 (unreleased)
+0.2.1 (2021-05-02)
 ------------------
 
 - Add further localization tags and update German 
   localization [Andreas Mantke]
 - Add license entry to setup.py [Andreas Mantke]
+- Changes to gridbox layout on tab3 [Andreas Mantke]
+- Add styles for groupboxes on tab3 [Andreas Mantke]
+- Update localization files [Andreas Mantke]
 
 
 
