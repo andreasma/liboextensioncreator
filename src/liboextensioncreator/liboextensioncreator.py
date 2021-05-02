@@ -384,8 +384,9 @@ class CreatorTabWidget(QWidget):
         self.palettebox.setEnabled(False)
         self.palettebox.hide()
         self.labelnamepalette = QLabel(self.tr('Name of the Palette'))
+        self.labelnamepalette.setObjectName('labelnamepalette')
         self.namepalette = QLineEdit()
-        self.namepalette.setObjectName(self.tr('Palette Name'))
+        self.namepalette.setObjectName('namepalette')
         self.numbercolorsbox = QGroupBox()
         gridbox5a = QGridLayout()
         self.numbercolorsbox.setLayout(gridbox5a)
@@ -406,7 +407,7 @@ class CreatorTabWidget(QWidget):
         gridbox5a.addWidget(self.colorsbox, 4, 0, 5, 3)
         gridbox5.addWidget(self.labelnamepalette, 0, 0)
         gridbox5.addWidget(self.namepalette, 0, 1)
-        gridbox5.addWidget(self.numbercolorsbox, 1, 0)
+        gridbox5.addWidget(self.numbercolorsbox, 1, 0, 1, 2)
         self.templatebox = QGroupBox(self.tr('Template Extension'))
         gridbox6 = QGridLayout()
         self.templatebox.setLayout(gridbox6)
@@ -817,10 +818,6 @@ class CreatorTabWidget(QWidget):
         else:
             self.palettebox.setEnabled(False)
             self.palettebox.hide()
-
-    def on_clicked(self):
-        print(*[item.text() for item in
-                self.items[:self.spinboxcolors.value()]], sep="\n")
 
     def set_item_count(self, new_count: int):
         n_items = len(self.items)
