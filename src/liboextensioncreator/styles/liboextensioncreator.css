@@ -9,7 +9,7 @@ QLabel {
 }
 
 QLineEdit {
-    background-color: rgb(238, 239, 241);
+    background-color: #eeeff1;
 }
 
 QPushButton {
@@ -65,11 +65,37 @@ QWidget#tab1, QWidget#tab2, QWidget#tab3 {
 
 #tab3 QGroupBox {
     border: none;
+    font-size: 22px;
 }
 
 #tab3 QRadioButton {
     background-color: #F9CFB5;
     padding-left: 10px;
+}
+
+#tab3 QLabel {
+    background-color: #E1E1E1;
+}
+
+#tab3 QSpinBox {
+    background-color: #eeeff1;
+    height: 30px;
+}
+
+#tab3 QSpinBox::down-button, #tab3 QSpinBox::up-button {
+    background-color: #E1E1E1;
+}
+
+#tab3 QSpinBox::up-arrow {
+    border : 5px solid #18A303;
+}
+
+#tab3 QSpinBox::down-arrow {
+    border : 5px solid red;
+}
+
+QLabel#labelnamepalette, QLineEdit#namepalette {
+    margin-top: 30px;
 }
 
 QTabBar::tab {
