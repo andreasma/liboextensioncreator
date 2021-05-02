@@ -4,7 +4,9 @@ Changelog
 0.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add further localization tags and update German 
+  localization [Andreas Mantke]
+- Add license entry to setup.py [Andreas Mantke]
 
 
 
