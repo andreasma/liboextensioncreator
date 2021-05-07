@@ -259,6 +259,23 @@ class CreatorTabWidget(QWidget):
                          'License Version 2.1)')
         self.eli.addItem('CC-BY-SA-4.0 (Creative Commons Attribution-'
                          'ShareAlike 4.0 International License')
+        self.langlicenselabel = QLabel(
+            "You can add localized license files to your extension. Choose "
+            "the language from the drop down field and use the 'choose' "
+            "button to select the language file in this language. "
+            "You could add further lines for localized license files "
+            "by pushing the button below this line.")
+        self.langlicenselabel.setWordWrap(True)
+        self.langlicense = QComboBox()
+        self.langlicense.addItem('de_DE')
+        self.langlicense.addItem('fr_FR')
+        self.langlicensbutton = QPushButton('Choose the localized license file')
+        self.addlanglicenseButton = QPushButton("Add a new line for a localized language file")
+        self.addlanglicenseButton.clicked.connect(lambda: self.addLineEdit(licensegroupbox))
+        licensegroupbox.addWidget(self.langlicenselabel, 3, 0, 1, 2)
+        licensegroupbox.addWidget(self.addlanglicenseButton, 4, 0)
+        licensegroupbox.addWidget(self.langlicense, 5, 0)
+        licensegroupbox.addWidget(self.langlicensbutton, 5, 1)
         suppressgroupbox = QGridLayout()
         self.groupboxsuppress = QGroupBox()
         self.groupboxsuppress.setLayout(suppressgroupbox)
@@ -772,7 +789,7 @@ class CreatorTabWidget(QWidget):
 
     def textbox_empty(self, widget):
         widgetname = widget.objectName()
-        if widget.text() == '':
+        if not widget.text():
             QMessageBox.critical(
                 self, widgetname,
                 self.tr("Empty value are not allowed."))
@@ -1000,6 +1017,19 @@ class CreatorTabWidget(QWidget):
                 cwd, 'working_directory', extensionname,
                 'iconsets')
             shutil.copy(iconset_file_name[0], path)
+            
+    def addLineEdit(self, licensegroupbox):
+        newlanglicense = QComboBox()
+        newlanglicense.addItem('de_DE')
+        newlanglicense.addItem('fr_FR')
+        newpushbutton = QPushButton()
+        newpushbutton.setText('Choose the localized license file')
+        licensegroupbox.addWidget(newlanglicense)
+        licensegroupbox.addWidget(newpushbutton)
+        
+    def addlanglicensefiles(self):
+        pass
+
 
 
 if __name__ == '__main__':
